@@ -11,7 +11,13 @@ Description: Package for extract trait values and create trait rules based on Tr
 Depends: R (>= 3.2.2)
 Imports: 
     stringr,
-    magrittr
+    magrittr,
+    openxlsx,
+    readxl,
+    tools,
+    rhandsontable,
+    htmlwidgets
+Suggest: rhandsontable
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 5.0.1

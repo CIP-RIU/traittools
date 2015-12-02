@@ -154,7 +154,8 @@ get_scale_trait <- function(trait,trait_dict){
     output <- list(cat_scale=cat_scale)
   }
   
-  if(tp=="none"){output <- print("none")
+  if(tp=="none"){
+    output <- print("none")
   }
   
   invisible(output)
