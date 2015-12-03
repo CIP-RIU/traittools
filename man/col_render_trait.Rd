@@ -4,7 +4,7 @@
 \alias{col_render_trait}
 \title{Conditional Trait Render for Fieldbook Web Table}
 \usage{
-col_render_trait(fieldbook, trait, trait_dict, export = FALSE)
+col_render_trait(fieldbook, trait, trait_dict)
 }
 \arguments{
 \item{fieldbook}{The fieldbook data}
@@ -12,9 +12,6 @@ col_render_trait(fieldbook, trait, trait_dict, export = FALSE)
 \item{trait}{The abbreviation(s) of the trait(s) used in fieldbooks.}
 
 \item{trait_dict}{The trait dictionary on crop ontology format.}
-
-\item{export}{logical. If TRUE, using the right click, appear a context menu for downloading as \code{csv} file.
-(paint with colours) the trait column to identify out of range values.}
 }
 \value{
 An web table spreadsheet with conditional format according trait conditions
