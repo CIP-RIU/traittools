@@ -17,7 +17,7 @@ trait_outlier <- function(file,sumsheet,trait){
   if(!is_trait) {print("This Trait is not considered")}
   #stat_pattern <- fieldbook %>% names(.) %>% grepl(pattern = "_Mean",.)
   
-  if(is.trait){
+  if(is_trait){
   trait_pos <- which(names(fbsummary) == trait_mean_pattern)
   rule <- (fbsummary[,trait_sd_pattern])>(fbsummary[,trait_mean_pattern]/2) #To detect outlier
 
