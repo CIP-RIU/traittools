@@ -2,6 +2,7 @@
 
 export("%>%")
 export(col_render_trait)
+export(col_trait_outlier)
 export(col_validation)
 export(col_validation_trait)
 export(get_scale_trait)
@@ -12,4 +13,5 @@ export(get_trait_units)
 export(render_categorical)
 export(render_quantitative)
 export(render_trait)
+export(trait_outlier)
 importFrom(magrittr,"%>%")
