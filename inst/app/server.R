@@ -4,6 +4,7 @@ library(dygraphs)
 library(data.table)
 library(reshape2)
 library(quantmod)
+library(traittools)
 
 #tkrs = c("MSFT", "CAT", "AXP", "DIS", "MMM")
 
@@ -47,24 +48,41 @@ shinyServer(function(input, output, session) {
   output$hot = renderRHandsontable({
     DT = NULL
     trait <-  c("NTP","Plant_Vigor","SE")
-    if (!is.null(input$hot)) {
-      DT = setDT(hot_to_r(input$hot))
-      #DT <- as.data.frame())
-      if (input$reweight) {
-      fb <- as.data.frame(calc())
-      #print("omar1")
-      }
-    values[["hot"]] = DT
-    } else if (!is.null(values[["hot"]])) {
-      DT = values[["hot"]]
-     #print("omar2")
-    }  
-    if (!is.null(DT))
-    col_render_trait(fieldbook = DT,trait = trait,trait_dict = potato_yield)
+     if (!is.null(input$hot)) {
+       DT = setDT(hot_to_r(input$hot))
+       save(DT,"omar.rds")
+       #DT <- as.data.frame())
+       if (input$reweight) {
+       fb <- as.data.frame(calc())
+       #print("omar1")
+       }
+     values[["hot"]] = DT
+     } else if (!is.null(values[["hot"]])) {
+       DT = values[["hot"]]
+      #print("omar2")
+     }  
+     if (!is.null(DT)) col_render_trait(fieldbook = DT,trait = trait,trait_dict = potato_yield)
     #print("omar3")
   })
-   
+  
+  output$exportAction<- renderUI({
+     actionButton("exportButton", "Process your Fieldbook")
+  })
+  
+  shiny::observeEvent(input$exportButton, function(){
     
+    isolate({ 
+    DT <- input$hot
+      #if (!is.null(input$hot)) {   
+       
+        #print(DT)
+        openxlsx::write.xlsx(DT,"test_export.xlsx")
+        #print("ok2")
+        shell.exec("test_export.xlsx")
+      #}
+   })
+    
+  })  
 #     if (!is.null(input$hot)) {
 #       DT = setDT(hot_to_r(input$hot))
 #       if (input$reweight) {
