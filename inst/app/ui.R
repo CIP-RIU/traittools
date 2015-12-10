@@ -12,8 +12,10 @@ shinyUI(fluidPage(
     column(4,
            rHandsontableOutput("hot_btable"),
            #checkboxInput("reweight", "Reweight?"),
-           uiOutput('exportAction'),
-           uiOutput('calculateAction')
+           actionButton("calculate", "Calculate Variables"),
+           uiOutput('exportAction')
+          
+         
     ),
     column(6,
            dygraphOutput("plot")
