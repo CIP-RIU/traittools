@@ -15,6 +15,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   fieldbook <- as.data.frame(fieldbook)
   fieldbook$PLOT <- as.integer(fieldbook$PLOT)
   fieldbook$REP <- as.integer(fieldbook$REP)
+  fieldbook$INSTN <- as.factor(fieldbook$INSTN)
   
   out_temp <- list()
   renderer_trait <-  list()
@@ -22,7 +23,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
       out_temp[[1]]<- rhandsontable::rhandsontable(data = fieldbook, readOnly = FALSE, useTypes = TRUE) #%>%  
       renderer_trait[[i]] <- render_trait(trait[i],trait_dict)
       j <- i+1
-      out_temp[[j]] <- rhandsontable::hot_col(hot = out_temp[[i]],col = trait[i] ,readOnly = FALSE,
+      out_temp[[j]] <- rhandsontable::hot_col(hot = out_temp[[i]], col = trait[i] ,readOnly = FALSE,
                                allowInvalid = TRUE,copyable = TRUE, renderer = renderer_trait[[i]]) 
   } 
   #k <- n+1
@@ -30,20 +31,26 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   #if(export){
   k <- n+1
   out_temp[[k]] %>%
-    rhandsontable::hot_context_menu(
-      customOpts = list(
-        csv = list(name = "Download to CSV",
-                   callback = htmlwidgets::JS(
-                     "function (key, options) {
-                     var csv = csvString(this);
-                     var link = document.createElement('a');
-                     link.setAttribute('href', 'data:text/plain;charset=utf-8,' +
-                     encodeURIComponent(csv));
-                     link.setAttribute('download', 'data.csv');
-                     document.body.appendChild(link);
-                     link.click();
-                     document.body.removeChild(link);
-       }"))))
+    hot_table(highlightCol = TRUE, highlightRow = TRUE) %>%
+     hot_cols(fixedColumnsLeft = 3)
+#     hot_cols(colWidths = 100) %>%
+#     hot_rows(rowHeights = 50)
+  
+#   out_temp[[k]] %>%
+#     rhandsontable::hot_context_menu(
+#       customOpts = list(
+#         csv = list(name = "Download to CSV",
+#                    callback = htmlwidgets::JS(
+#                      "function (key, options) {
+#                      var csv = csvString(this);
+#                      var link = document.createElement('a');
+#                      link.setAttribute('href', 'data:text/plain;charset=utf-8,' +
+#                      encodeURIComponent(csv));
+#                      link.setAttribute('download', 'data.csv');
+#                      document.body.appendChild(link);
+#                      link.click();
+#                      document.body.removeChild(link);
+#        }"))))
 #}
   
 } 
