@@ -9,8 +9,9 @@ library(traittools)
 library(sbformula)
 
 # saveRDS(returns, "returns.rds")
+returns = readRDS("ptfieldbook.rds")
 #returns = readRDS("ptfieldbook2.rds")
-returns = readRDS("ptfieldbook3.rds")
+#returns = readRDS("ptfieldbook3.rds")
 returns <- data.table::data.table(returns)
 setkey(returns, PLOT)
 
@@ -46,12 +47,12 @@ shinyServer(function(input, output, session) {
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
       DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
-      col_render_trait(DF,trait = "TTWP",potato_yield)
+      col_render_trait(DF,trait = "MTWP",potato_yield)
       
       
     }
     
-    col_render_trait(DF,trait = "TTWP",potato_yield)
+    col_render_trait(DF,trait = "MTWP",potato_yield)
     
   #}
 })  
@@ -65,7 +66,7 @@ shinyServer(function(input, output, session) {
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
       DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
-      col_render_trait(DF,trait = "TTWP",potato_yield)
+      col_render_trait(DF,trait = "MTWP",potato_yield)
   }  
     })
   })
