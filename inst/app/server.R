@@ -5,7 +5,7 @@ library(data.table)
 library(reshape2)
 library(quantmod)
 library(traittools)
-library(traittools)
+
 library(sbformula)
 
 # saveRDS(returns, "returns.rds")
@@ -47,6 +47,7 @@ shinyServer(function(input, output, session) {
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
       DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
+<<<<<<< HEAD
       col_render_trait(DF,trait = "MTWP",potato_yield)
       
       
@@ -55,18 +56,30 @@ shinyServer(function(input, output, session) {
     col_render_trait(DF,trait = "MTWP",potato_yield)
     
   #}
+=======
+      #col_render_trait(DF,trait = "TTWP",potato_yield)
+    }
+    traits <- get_trait_fb(DF)
+    col_render_trait(DF,trait = traits ,potato_yield)
+
+>>>>>>> 372834ff9f81cbaa387985ef536e479891694118
 })  
 
   
   shiny::observeEvent(input$calculate, {
     isolate({
   if (!is.null(values[["hot_btable"]])) {
-      plot_size <- 0.003
-      plant_den <- 10
+      plot_size <- 2
+      plant_den <- 2
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
       DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
+<<<<<<< HEAD
       col_render_trait(DF,trait = "MTWP",potato_yield)
+=======
+      traits <- get_trait_fb(DF)
+      col_render_trait(DF,trait = traits,potato_yield)
+>>>>>>> 372834ff9f81cbaa387985ef536e479891694118
   }  
     })
   })
