@@ -6,10 +6,10 @@ library(traittools)
 library(sbformula)
 
 #returns = readRDS("ptfieldbook3.rds")
-returns = readRDS("spfieldbook.rds")
+#returns = readRDS("spfieldbook.rds")
 #returns = readRDS("ptfieldbook.rds")
 #returns = readRDS("ptfieldbook2.rds")
-#returns = readRDS("ptfieldbook3.rds")
+returns = readRDS("ptfieldbook3.rds")
 #returns <- data.table::data.table(returns)
 #setkey(returns, PLOT)
 
@@ -28,7 +28,12 @@ ui = dashboardPage(
 #               fluidRow(box(rHandsontableOutput("hot", height = 400)),
 #                        box(rHandsontableOutput("hot2", width = 200))),
 #               fluidRow(box(rHandsontableOutput("hot3"))),
-              fluidRow(box(rHandsontableOutput("hot_btable",width = "1200")),width=100 ,collapsible = TRUE)
+              fluidRow(
+                box(
+                  title = "ivan", width=6, collapsible = TRUE,
+                  rHandsontableOutput("hot_btable")
+                )
+              )
       )
     )
   )

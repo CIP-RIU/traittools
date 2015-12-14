@@ -18,7 +18,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   fieldbook$INSTN <- as.factor(fieldbook$INSTN)
   
   #Validator validates all the trait which produce render_values different from ("")
-  validator <- lapply(vars,function(x) v <- render_trait(trait = x,trait_dict = sweetpotato_yield))
+  validator <- lapply(trait,function(x) v <- render_trait(trait = x,trait_dict = trait_dict))
   trait <- trait[validator!=""]
   n <- length(trait)
   

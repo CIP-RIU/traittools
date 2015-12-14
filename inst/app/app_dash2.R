@@ -8,27 +8,25 @@ library(sbformula)
 #returns = readRDS("ptfieldbook3.rds")
 returns = readRDS("spfieldbook.rds")
 
-ui = dashboardPage(
+ui  <-  dashboardPage(
   dashboardHeader(title = "rhandsontable Example"),
   dashboardSidebar(
     sidebarMenu(
       menuItem("Table", tabName = "table", icon = icon("dashboard")),
+      fileInput(inputId="hot_file", label="Choose Fieldbook" , multiple = FALSE, accept = NULL, width = NULL),
       actionButton("calculate", "Calculate Variables")
     )
   ),
   dashboardBody(
     tabItems(
       tabItem(tabName = "table",
-              #               fluidRow(box(rHandsontableOutput("hot", height = 400)),
-              #                        box(rHandsontableOutput("hot2", width = 200))),
-              #               fluidRow(box(rHandsontableOutput("hot3"))),
               fluidRow(box(rHandsontableOutput("hot_btable",width = "1200")),width=100 ,collapsible = TRUE)
       )
     )
   )
 )
 
-server = function(input, output,session) {
+server <- function(input, output,session) {
   
   output$hot_btable = renderRHandsontable({
      
