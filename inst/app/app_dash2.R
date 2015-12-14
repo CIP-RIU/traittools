@@ -30,8 +30,20 @@ server <- function(input, output,session) {
   
   output$hot_btable = renderRHandsontable({
      
+   hot_bdata <- reactive({
+        fb_file <- input$hot_file
+        if(!is.null(fb_file)){
+        file.copy(fb_file$datapath, paste(fb_file$datapath, ".xlsx", sep=""))
+        fieldbook <- readxl::read_excel(paste(fb_file$datapath, ".xlsx", sep=""), sheet = "Fieldbook") 
+        fieldbook
+      }
+    })
+    
+    
     values = shiny::reactiveValues(
-      hot_btable = returns
+      #if(is.null(_data)){hot_btable <- NULL}
+      hot_btable = hot_bdata()
+      #hot_btable = returns
     )
     
     calc = shiny::reactive({
@@ -56,6 +68,8 @@ server <- function(input, output,session) {
     traits <- get_trait_fb(DF)
     col_render_trait(DF,trait = traits ,sweetpotato_yield)    
     
+
+
   })
   
 }
