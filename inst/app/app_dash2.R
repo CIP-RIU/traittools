@@ -4,6 +4,7 @@ library(data.table)
 library(rhandsontable)
 library(traittools)
 library(sbformula)
+library(openxlsx)
 
 #returns = readRDS("ptfieldbook3.rds")
 returns = readRDS("spfieldbook.rds")
@@ -15,6 +16,7 @@ ui  <-  dashboardPage(
       menuItem("Table", tabName = "table", icon = icon("dashboard")),
       fileInput(inputId="hot_file", label="Choose Fieldbook" , multiple = FALSE, accept = NULL, width = NULL),
       actionButton("calculate", "Calculate Variables")
+      #uiOutput('exportAction')
     )
   ),
   dashboardBody(
@@ -27,20 +29,26 @@ ui  <-  dashboardPage(
 )
 
 server <- function(input, output,session) {
-  
+   
   output$hot_btable = renderRHandsontable({
      
    hot_bdata <- reactive({
-        fb_file <- input$hot_file
-        if(!is.null(fb_file)){
-        file.copy(fb_file$datapath, paste(fb_file$datapath, ".xlsx", sep=""))
-        fieldbook <- readxl::read_excel(paste(fb_file$datapath, ".xlsx", sep=""), sheet = "Fieldbook") 
-        fieldbook
-      }
+        
+#         fb_file <- input$hot_file
+#         if(!is.null(fb_file)){
+#         file.copy(fb_file$datapath, paste(fb_file$datapath, ".xlsx", sep=""))
+#         fieldbook <- readxl::read_excel(paste(fb_file$datapath, ".xlsx", sep=""), sheet = "Fieldbook") 
+#         fieldbook
+     fb_file <- input$hot_file
+     if(is.null(fb_file)) return(NULL)
+     reactive_excel_fb(fb_file,"Fieldbook")
+      
     })
-    
-    
-    values = shiny::reactiveValues(
+   
+   
+   
+   
+   values = shiny::reactiveValues(
       #if(is.null(_data)){hot_btable <- NULL}
       hot_btable = hot_bdata()
       #hot_btable = returns
@@ -65,13 +73,48 @@ server <- function(input, output,session) {
       DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
       
     }
+    
+    if(!is.null(DF)){
     traits <- get_trait_fb(DF)
     col_render_trait(DF,trait = traits ,sweetpotato_yield)    
-    
+    }
+})
 
-
+  output$exportAction<- renderUI({
+    actionButton("exportButton", "Download")
   })
   
+#   shiny::observeEvent(input$exportButton, function(){
+#     
+#     isolate({ 
+#       
+#        if (!is.null(values[["hot_btable"]])) {
+#         DF = values[["hot_btable"]]
+#         rhandsontable(DF)
+#       }
+#       
+#       openxlsx::write.xlsx(DF, "test_export.xlsx", overwrite=TRUE)
+#       
+# #       fieldbook <- readxl::read_excel(fp,sheet = "Fieldbook")
+# #       
+# #       if("Fieldbook" %in% sheets){    
+# #         openxlsx::removeWorksheet(wb, "Fieldbook")
+# #       }
+# #       
+# #       if("Summary by clone" %in% sheets){    
+# #         openxlsx::removeWorksheet(wb, "Summary by clone")
+# #       }
+# #       
+# #       openxlsx::addWorksheet(wb = wb,sheetName = "Fieldbook",gridLines = TRUE)
+# #       
+# #       openxlsx::saveWorkbook(wb = wb,file = fp,overwrite = TRUE) 
+#       
+#      })
+#     
+#   })  
+#   
+ 
 }
+
 
 shinyApp(ui, server)

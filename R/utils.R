@@ -12,3 +12,19 @@
    trait_names 
    
  }
+ 
+ #' Read fieldbooks in reactive enviorment (Shiny)  
+ #' @param file_id The id of the shinyInput for an fieldbook excel (input$shinyInput_id). 
+ #' @param sheet The name of sheet which contains fieldbook data
+ #' @author omar benites
+ #' @return A data.frame contains the fieldbook data
+ #' @export
+ #'  
+ 
+ reactive_excel_fb <- function(file_id,sheet){
+   #fb_file <- input$hot_file
+   file.copy(file_id$datapath, paste(file_id$datapath, ".xlsx", sep=""))
+   fieldbook <- readxl::read_excel(paste(file_id$datapath, ".xlsx", sep=""), sheet = sheet)
+   fieldbook
+ } 
+ 
