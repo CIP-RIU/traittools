@@ -27,4 +27,24 @@
    fieldbook <- readxl::read_excel(paste(file_id$datapath, ".xlsx", sep=""), sheet = sheet)
    fieldbook
  } 
+
  
+#' Get fieldbook parameters into Excel Files 
+#' @description This function gets parameters or values from fieldbook excel file. Do an excel scrapping.
+#' @param file The file name
+#' @param sheet The sheet name
+#' @param parameter The column header to extract parameters.
+#' @export
+#' 
+get.fb.param <- function(file,sheet,parameter){
+   parameter <- readxl::read_excel(path = file, sheet = sheet)
+   parameter<- as.data.frame(parameter)
+   lapply(x <- 1:ncol(parameter), function(x) parameter[,x]<-as.character(parameter[,x]))
+   #for(i in 1:ncol(params)) params[,i]<-as.character(params[,i])
+   parameter[parameter$Factor==parameter,2]
+ }
+ 
+
+
+
+

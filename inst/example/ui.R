@@ -24,7 +24,7 @@ shinyUI(
         dashboardBody(
           tabItems(
             tabItem(tabName = "table",
-                    fluidRow(box(rHandsontableOutput("hot_btable",width = "1200")),width=100 ,collapsible = TRUE)
+                    fluidRow(box(rHandsontableOutput("hot_btable",width = "1000"),width=1000),collapsible = TRUE)
             )
           )
         )

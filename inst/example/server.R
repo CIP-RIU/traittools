@@ -61,8 +61,18 @@ shinyServer(function(input, output, session) {
     }
     
     if(input$calculate>0){
-      plot_size <- 2.7
-      plant_den <- 37037
+      
+      hot_file <- as.character(parseFilePaths(volumes, input$file)$datapath)
+      
+      #plot_size <- get.fb.param(hot_file,"Installation","Plot size (m2)")
+      #plant_den <- get.fb.param(hot_file,"Installation","Planting density (plants/Ha)")  
+      #plot_size <- 2.3
+      #plant_den <- 23001
+      
+      inst 	   <-  readxl::read_excel(path = hot_file, sheet = "Installation") 
+      plot_size  <-  as.numeric(inst[stringr::str_detect(inst$Factor,"Plot size"),"Value"])
+      plant_den  <-  as.numeric(inst[stringr::str_detect(inst$Factor,"Planting density"),"Value"])
+      
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
       DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
@@ -70,8 +80,6 @@ shinyServer(function(input, output, session) {
     }
 
     if(!is.null(DF)){
-      print(DF)
-      print("ok")
       traits <- get_trait_fb(DF)
       saveRDS(DF,"hot_fieldbook.rds")
       col_render_trait(DF,trait = traits ,sweetpotato_yield)  
