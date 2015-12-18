@@ -5,9 +5,10 @@ library(rhandsontable)
 library(traittools)
 library(sbformula)
 library(openxlsx)
+library(shinyFiles)
 
 #returns = readRDS("ptfieldbook3.rds")
-returns = readRDS("spfieldbook.rds")
+#returns = readRDS("spfieldbook.rds")
 
 ui  <-  dashboardPage(
   dashboardHeader(title = "rhandsontable Example"),
@@ -15,7 +16,9 @@ ui  <-  dashboardPage(
     sidebarMenu(
       menuItem("Table", tabName = "table", icon = icon("dashboard")),
       fileInput(inputId="hot_file", label="Choose Fieldbook" , multiple = FALSE, accept = NULL, width = NULL),
+      shinyFilesButton('file', 'File select', 'Please select a file', FALSE),
       actionButton("calculate", "Calculate Variables")
+      
       #uiOutput('exportAction')
     )
   ),
@@ -40,13 +43,15 @@ server <- function(input, output,session) {
 #         fieldbook <- readxl::read_excel(paste(fb_file$datapath, ".xlsx", sep=""), sheet = "Fieldbook") 
 #         fieldbook
      fb_file <- input$hot_file
+     #str(fb_file)
      if(is.null(fb_file)) return(NULL)
      reactive_excel_fb(fb_file,"Fieldbook")
       
     })
-   
-   
-   
+  
+   volumes <- c('R Installation'=getwd())
+   shinyFileChoose(input, 'file', roots=volumes, session=session, restrictions=system.file(package='base'))
+   print(parseFilePaths(volumes, input$file))
    
    values = shiny::reactiveValues(
       #if(is.null(_data)){hot_btable <- NULL}
