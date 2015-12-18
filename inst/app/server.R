@@ -17,6 +17,7 @@ setkey(returns, PLOT)
 
 
 shinyServer(function(input, output, session) {
+  
   values = shiny::reactiveValues(
     hot_btable = returns
   )
@@ -47,7 +48,7 @@ shinyServer(function(input, output, session) {
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
       DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
-<<<<<<< HEAD
+
       col_render_trait(DF,trait = "MTWP",potato_yield)
       
       
@@ -56,34 +57,33 @@ shinyServer(function(input, output, session) {
     col_render_trait(DF,trait = "MTWP",potato_yield)
     
   #}
-=======
+
       #col_render_trait(DF,trait = "TTWP",potato_yield)
-    }
+   
     traits <- get_trait_fb(DF)
     col_render_trait(DF,trait = traits ,potato_yield)
 
->>>>>>> 372834ff9f81cbaa387985ef536e479891694118
+
 })  
 
   
-  shiny::observeEvent(input$calculate, {
-    isolate({
-  if (!is.null(values[["hot_btable"]])) {
-      plot_size <- 2
-      plant_den <- 2
-      DF = values[["hot_btable"]]
-      DF <- as.data.frame(DF)
-      DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
-<<<<<<< HEAD
-      col_render_trait(DF,trait = "MTWP",potato_yield)
-=======
-      traits <- get_trait_fb(DF)
-      col_render_trait(DF,trait = traits,potato_yield)
->>>>>>> 372834ff9f81cbaa387985ef536e479891694118
-  }  
-    })
-  })
-  
+#   shiny::observeEvent(input$calculate, {
+#     isolate({
+#   if (!is.null(values[["hot_btable"]])) {
+#       plot_size <- 2
+#       plant_den <- 2
+#       DF = values[["hot_btable"]]
+#       DF <- as.data.frame(DF)
+#       DF <- sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
+# 
+#       col_render_trait(DF,trait = "MTWP",potato_yield)
+# 
+#       traits <- get_trait_fb(DF)
+#       col_render_trait(DF,trait = traits,potato_yield)
+# }
+#       })
+#   })
+#   
   
   output$exportAction<- renderUI({
     actionButton("exportButton", "Download")
@@ -105,7 +105,7 @@ shinyServer(function(input, output, session) {
      }
        
      openxlsx::write.xlsx(DF, "test_export.xlsx", overwrite=TRUE)
-     #shell.exec("test_export.xlsx")
+     shell.exec("test_export.xlsx")
     })
     
   })  
