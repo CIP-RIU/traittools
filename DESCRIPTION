@@ -16,7 +16,7 @@ Imports:
     readxl,
     tools,
     rhandsontable,
-    htmlwidgets
+    doBy
 Suggest: rhandsontable
 License: MIT + file LICENSE
 LazyData: true

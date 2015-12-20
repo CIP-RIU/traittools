@@ -1,6 +1,4 @@
-#####################################################################################################
 #' Conditional Trait Render for Fieldbook Web Table
-#' 
 #' @description This function highlight all the values which are out of range in a fieldbook WebTable. 
 #' @param fieldbook The fieldbook data
 #' @param trait The abbreviation(s) of the trait(s) used in fieldbooks.  
@@ -40,8 +38,8 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   #if(export){
   k <- n+1
   out_temp[[k]] %>%
-    hot_table(highlightCol = TRUE, highlightRow = TRUE) %>%
-     hot_cols(fixedColumnsLeft = 3)
+    rhandsontable::hot_table(highlightCol = TRUE, highlightRow = TRUE) %>%
+    rhandsontable::hot_cols(fixedColumnsLeft = 3)
 #     hot_cols(colWidths = 100) %>%
 #     hot_rows(rowHeights = 50)
   

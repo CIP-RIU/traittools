@@ -2,7 +2,7 @@
 % Please edit documentation in R/traitformat_excel.R
 \name{col_validation_trait}
 \alias{col_validation_trait}
-\title{Conditional Trait Format in Fieldbook Spreadseet (Excel)}
+\title{Create conditional trait format into Fieldbook Spreadseet (Excel)}
 \usage{
 col_validation_trait(file, fbsheet, trait, trait_dict)
 }
@@ -13,13 +13,13 @@ col_validation_trait(file, fbsheet, trait, trait_dict)
 
 \item{trait}{The abbreviation(s) of the trait(s) used in fieldbooks.}
 
-\item{trait_dict}{The trait dictionary on crop ontology format.}
+\item{trait_dict}{The trait dictionary on crop ontology format.
+(paint with colours) the trait column to identify out of range values.}
 }
 \value{
 An excel file with conditional format according trait conditions
 }
 \description{
-This function highlight all the values which are out of range in a fieldbook spreadsheet 
-(paint with colours) the trait column to identify out of range values.
+This function highlight all the values which are out of range in a fieldbook spreadsheet
 }
 

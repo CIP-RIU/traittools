@@ -32,7 +32,6 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
   posStyle <- openxlsx::createStyle(fontColour = "#006100", bgFill = "#C6EFCE")
   
   
-  
   if(tp == "Continuous"|| tp == "Discrete"){
     #print(out$ll)
     #print(out$ul)
@@ -40,7 +39,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
     openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols=col_number, rows=2:nc, rule=sprintf("<%s", scale_value$ll), style = negStyle)#WRONG
     openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = c(scale_value$ll,scale_value$ul), style = posStyle,type = "between" )
   } 
-  
+   
   if(tp =="Categorical"){
     
     #print(out$cat_scale)
@@ -56,17 +55,14 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
   }
   
   openxlsx::saveWorkbook(wb,file = file,overwrite = TRUE)
-  
 }
 
-
-#####################################################################################################
-#' Conditional Trait Format in Fieldbook Spreadseet (Excel)
+#' Create conditional trait format into Fieldbook Spreadseet (Excel)
+#' @description This function highlight all the values which are out of range in a fieldbook spreadsheet 
 #' @param file The name of the file which contains your data fieldbook data. It must be an .xlsx file
 #' @param fbsheet The name of the fieldbook sheet into the excel file.
 #' @param trait The abbreviation(s) of the trait(s) used in fieldbooks.  
 #' @param trait_dict The trait dictionary on crop ontology format.
-#' @description This function highlight all the values which are out of range in a fieldbook spreadsheet 
 #' (paint with colours) the trait column to identify out of range values.
 #' @return An excel file with conditional format according trait conditions 
 #' @export
