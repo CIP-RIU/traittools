@@ -26,8 +26,29 @@ shinyServer(function(input, output, session) {
     hot_bdata <- readxl::read_excel(path=hot_file , sheet = "Fieldbook")
     }
   })
-
-
+  
+  hot_params <- reactive({
+    hot_file <- hot_path()
+    if(length(hot_file)==0){return (NULL)}
+    if(length(hot_file)>0){
+      hot_param <- readxl::read_excel(path=hot_file , sheet = "Installation")
+      hot_design <- get_fb_param(hot_param,"Experimental design")
+      hot_plot_size <- get_fb_param(hot_param,"Plot size (m2)")
+      hot_plant_den <- get_fb_param(hot_param,"Planting density (plants/Ha)")
+      hot_params_list <- list(hot_design = hot_design, hot_plot_size = hot_plot_size,
+                              hot_plant_size =  hot_plant_den)
+    }
+  })  
+    hot_crop <- reactive({
+      hot_file <- hot_path()
+      if(length(hot_file)==0){return (NULL)}
+      if(length(hot_file)>0){
+        hot_param <- readxl::read_excel(path=hot_file , sheet = "Minimal")
+        hot_crop <- get_fb_param(hot_param,"Crop")
+      }
+  })
+  
+  
   output$hot_btable = renderRHandsontable({
     
     values  <-  shiny::reactiveValues(
@@ -46,23 +67,33 @@ shinyServer(function(input, output, session) {
     if(input$calculate>0){
       
       #hot_file <- as.character(parseFilePaths(volumes, input$file)$datapath)
-      hot_file <- hot_path()
-      installation_sheet<- traittools::get_sheet_data(file=hot_file,sheet <- "Installation")
-      plot_size  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Plot size"),"Value"])
-      plant_den  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Planting density"),"Value"])
+      #hot_file <- hot_path()
+      hot_plot_size <- as.numeric(hot_params()$hot_plot_size)
+      hot_plant_den <- as.numeric(hot_params()$hot_plant_den)
+      
+      
+      #installation_sheet<- traittools::get_sheet_data(file=hot_file,sheet <- "Installation")
+      #plot_size  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Plot size"),"Value"])
+      #plant_den  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Planting density"),"Value"])
       #plot_size <- 0.05
       #plant_den <- 50
       
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
-      DF <- sbformula::sbcalculate(fb = DF,plot.size = plot_size,plant.den = plant_den)
+      DF <- sbformula::sbcalculate(fb = DF,plot.size =hot_plot_size, plant.den = hot_plant_den)
       
     }
 
     if(!is.null(DF)){
       traits <- get_trait_fb(DF)
       saveRDS(DF,"hot_fieldbook.rds")
-      traittools::col_render_trait(DF,trait = traits ,sweetpotato_yield)  
+      crop <- hot_crop()
+      if(crop == "potato"){ trait_dict <- potato_yield}
+      if(crop == "sweetpotato"){ trait_dict <- sweetpotato_yield}
+      
+      traittools::col_render_trait(fieldbook = DF,trait = traits ,trait_dict = trait_dict)
+      
+      
     }
     #}
  
@@ -72,12 +103,18 @@ shinyServer(function(input, output, session) {
       
      DF <- readRDS("hot_fieldbook.rds")
      
-     trait <- get_trait_fb(fieldbook)
+     trait <- get_trait_fb(DF)
+     crop <- hot_crop()
+     if(crop == "potato"){ trait_dict <- potato_yield }
+     if(crop == "sweetpotato"){ trait_dict <- sweetpotato_yield }
+     
      validator <- is.element(trait,trait_dict$ABBR)
      trait <- trait[validator]
-   
+     
+     hot_design <- as.character(hot_params()$hot_design)
+     
      summary <- trait_summary_join(fieldbook = DF, genotype = "INSTN",trait = trait, 
-                                   design = "Randomized Complete Block Design (RCBD)", trait_dict = sweetpotato_yield)
+                                   design = hot_design, trait_dict = trait_dict)
      
      hot_file <- hot_path() 
      
@@ -101,7 +138,7 @@ shinyServer(function(input, output, session) {
      
      openxlsx::saveWorkbook(wb = wb, file = hot_file, overwrite = TRUE) 
      traits <- traittools::get_trait_fb(DF)
-     traittools::col_validation_trait(file = hot_file,fbsheet = "Fieldbook",trait = traits,trait_dict = sweetpotato_yield)
+     traittools::col_validation_trait(file = hot_file,fbsheet = "Fieldbook",trait = traits,trait_dict = trait_dict)
      
      shell.exec(hot_file)
     

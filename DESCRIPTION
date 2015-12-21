@@ -17,7 +17,8 @@ Imports:
     tools,
     rhandsontable,
     doBy
-Suggest: rhandsontable
+Suggest: r-base-dev,
+         rhandsontable
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 5.0.1

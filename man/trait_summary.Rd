@@ -25,7 +25,7 @@ A data frame with the count, mean and standard desviation of the trait
 }
 \description{
 This function is capable of divide the information in categorial or quantitative data based on a data dictionary for potato and sweepotato.
-If it is categorical, returns the count #'and mode. And if it is quantitative, returns the count, media and standart desviation.
+If it is categorical, returns the count and mode. And if it is quantitative, returns the count, media and standart desviation.
 }
 \author{
 Omar Benites

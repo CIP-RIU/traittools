@@ -11,7 +11,7 @@ length2 <- function (x, na.rm=FALSE) {
 
 #' Function to calculate summary statistics for fieldbook data from excel files
 #' @description This function is capable of divide the information in categorial or quantitative data based on a data dictionary for potato and sweepotato.
-#'If it is categorical, returns the count #'and mode. And if it is quantitative, returns the count, media and standart desviation.
+#' If it is categorical, returns the count and mode. And if it is quantitative, returns the count, media and standart desviation.
 #' @param fieldbook A data frame of the fieldbook
 #' @param trait The name or position of the measured variable that will be summarized.
 #' @param genotype The column name of the genotype
@@ -156,7 +156,7 @@ merge.all <- function(x, y, bycol) {
 
 #' Join all the summarized results of fieldbook's traits  
 #' @description This function sumarizes one or more traits acording to trait_dictionary. 
-#' It show the mean (quantitative), mode(cualitative),
+#' It show the mean (quantitative), mode (cualitative),
 #' standard desviation and length of the genotypes.
 #' @param fieldbook A data.frame with the fieldbook data.
 #' @param trait The column name of the trait into the fieldbook.
@@ -168,7 +168,7 @@ merge.all <- function(x, y, bycol) {
 #' @export
 #' 
 
-trait_summary_join <- function(fieldbook, genotype = NA, factor =NA, trait, 
+trait_summary_join <- function(fieldbook, trait, genotype = NA, factor =NA, 
                                design= "Randomized Complete Block Design (RCBD)", trait_dict){
 
     if(!is.data.frame(fieldbook)){print("Please enter data.frame")}  

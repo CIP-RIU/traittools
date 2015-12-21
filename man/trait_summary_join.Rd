@@ -4,17 +4,17 @@
 \alias{trait_summary_join}
 \title{Join all the summarized results of fieldbook's traits}
 \usage{
-trait_summary_join(fieldbook, genotype = NA, factor = NA, trait,
+trait_summary_join(fieldbook, trait, genotype = NA, factor = NA,
   design = "Randomized Complete Block Design (RCBD)", trait_dict)
 }
 \arguments{
 \item{fieldbook}{A data.frame with the fieldbook data.}
 
+\item{trait}{The column name of the trait into the fieldbook.}
+
 \item{genotype}{The column name of the genotype}
 
 \item{factor}{The column name of the factor}
-
-\item{trait}{The column name of the trait into the fieldbook.}
 
 \item{design}{The fieldbook design.}
 
@@ -25,7 +25,7 @@ An excel file with conditional format according trait conditions
 }
 \description{
 This function sumarizes one or more traits acording to trait_dictionary. 
-It show the mean (quantitative), mode(cualitative),
+It show the mean (quantitative), mode (cualitative),
 standard desviation and length of the genotypes.
 }
 

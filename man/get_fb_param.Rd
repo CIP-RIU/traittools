@@ -4,12 +4,10 @@
 \alias{get_fb_param}
 \title{Get fieldbook parameters into Excel Files}
 \usage{
-get_fb_param(file, sheet, parameter)
+get_fb_param(param_data, parameter)
 }
 \arguments{
-\item{file}{The file name}
-
-\item{sheet}{The sheet name}
+\item{param_data}{Parameter sheet data}
 
 \item{parameter}{The label of the factor we want to extract. Ex. "Experimental design", "Plot_Size"}
 }

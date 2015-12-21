@@ -31,14 +31,17 @@ reactive_excel_fb <- function(file_id,sheet){
  
 #' Get fieldbook parameters into Excel Files
 #' @description This function gets parameters or values from fieldbook excel file. Do an excel scrapping.
-#' @param file The file name
-#' @param sheet The sheet name
+#' @param param_data Parameter sheet data
+## @param file The file name
+## @param sheet The sheet name
 #' @param parameter The label of the factor we want to extract. Ex. "Experimental design", "Plot_Size"
 #' @export
 #' 
-get_fb_param <- function(file,sheet,parameter){
-   fb_param <- readxl::read_excel(path = file, sheet = sheet)
-   fb_param<- as.data.frame(fb_param)
+#get_fb_param <- function(fieldbook,sheet,parameter){
+get_fb_param <- function(param_data,parameter){
+   #fb_param <- readxl::read_excel(path = file, sheet = sheet)
+   #fb_param<- as.data.frame(fb_param)
+   fb_param <- as.data.frame(param_data)
    fb_param[fb_param$Factor==parameter,2]
  }
  

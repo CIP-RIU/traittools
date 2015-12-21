@@ -1,3 +1,9 @@
+#-----------------------------------------------------------------------------
+# To mitigate R CMD check producing NOTES
+# reference http://stackoverflow.com/a/12429344
+#-----------------------------------------------------------------------------
+globalVariables(c("."))
+
 #' An outlier values detector of sumarized fieldbook spreadsheets (Excel)  
 #' @description This function use openxlsx package to give conditional format for fieldbook spreadsheet
 #' @param file The name of the excel file. It must be an .xlsx file
