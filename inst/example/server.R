@@ -100,7 +100,11 @@ shinyServer(function(input, output, session) {
     })
  
    shiny::observeEvent(input$exportButton, function(){
-      
+     
+     withProgress(message = "Downloading Fieldbook and Applying Format...",value= 0,
+                  {
+                    
+       
      DF <- readRDS("hot_fieldbook.rds")
      
      trait <- get_trait_fb(DF)
@@ -112,19 +116,15 @@ shinyServer(function(input, output, session) {
      trait <- trait[validator]
      
      hot_design <- as.character(hot_params()$hot_design)
-     
      summary <- trait_summary_join(fieldbook = DF, genotype = "INSTN",trait = trait, 
                                    design = hot_design, trait_dict = trait_dict)
-     
      hot_file <- hot_path() 
-     
      wb <- openxlsx::loadWorkbook(hot_file)
      sheets <- readxl::excel_sheets(path = hot_file)
      
      if("Fieldbook" %in% sheets){    
        openxlsx::removeWorksheet(wb, "Fieldbook")
      }
-     
      if("Summary" %in% sheets){    
        openxlsx::removeWorksheet(wb, "Summary")
        # openxlsx::saveWorkbook(wb = wb, file = file, overwrite = TRUE) 
@@ -142,6 +142,8 @@ shinyServer(function(input, output, session) {
      
      shell.exec(hot_file)
     
+   })
+     
    })  
   
 })
