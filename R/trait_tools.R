@@ -162,8 +162,38 @@ get_scale_trait <- function(trait,trait_dict){
   
 }
 
+##############################################################################
+#'RJavascript generator extended to render quantitative traits with javascript conditions and outlier detection
+#'
+#' @param ll lower limit values of the trait
+#' @param ul upper limmit values of the trait
+#' @param ol lower outlier bound
+#' @param ul upper outlier bound
+#' @author omar benites
+#' @description Function to generate Javascript code for quantitative trait validation and outlier detection
+#' in Rhansontable 
+#' @export
+#' 
+
+render_quantitative_ext <- function(ll,ul,ol,ou){
+  
+  out <-  paste("function (instance, td, row, col, prop, value, cellProperties) {
+                Handsontable.renderers.TextRenderer.apply(this, arguments);
+              if (value <", ll," ) {
+              td.style.background = 'pink';
+              } else if (value >", ul,") {
+              td.style.background = 'pink';
+              } else if (value <=", ol,"  && value >=", ll,") {
+              td.style.background = 'gold';
+              } else if (value >=", ou,"   &&  value <=", ul,") {
+              td.style.background = 'gold';
+              }
+              }",sep="")
+  out
+}
+
 #####################################################################
-#'Function for render quantitative traits in javascript conditions
+#'RJavascript generator for quantitative traits in javascript conditions
 #'
 #' @param ll lower limit values of the trait
 #' @param ul upper limmit values of the trait
@@ -186,7 +216,7 @@ render_quantitative <- function(ll,ul){
   }
 
 #########################################################################
-#'Javascript generator for cualitative trait renders
+#'RJavascript generator for cualitative trait renders
 #'
 #' @param scale_condition scale condition of the trait
 #' @author omar benites
@@ -204,7 +234,6 @@ render_categorical <- function(scale_condition){
   #return(out)
   out
   } 
-
 
 #########################################################################
 #'Javascript Generator for Trait Renders usigin Trai Dictionary from Crop Ontology
@@ -256,3 +285,53 @@ render_trait<- function(trait,trait_dict){
   out
   #return(out)
 }
+
+#########################################################################
+#'Javascript Generator Extended for Trait Renders usigin Trai Dictionary from Crop Ontology
+#'
+#' @param data The name of the data frame.
+#' @param trait trait
+#' @param trait_dict trait dictionary
+#' @author omar benites
+#' @description  Javascript code generator for render trait variables for Rhandsontable
+#' @export 
+#' 
+
+render_trait_ext<- function(data,trait,trait_dict){
+  
+  tp <- get_trait_type(trait,trait_dict)  
+  scale_trait_values <- get_scale_trait(trait = trait,trait_dict = trait_dict)
+  
+  if(tp == "Continuous"|| tp == "Discrete"){
+    
+    ul <- scale_trait_values$ul  
+    ll <- scale_trait_values$ll
+    
+    ol <- outlier_val(data[,trait])$ol
+    ou <- outlier_val(data[,trait])$ou
+    
+    render_trait <- render_quantitative_ext(ll,ul,ol,ou)
+    out <- paste(render_trait)
+    
+  }
+  
+  if(tp =="Categorical"){
+    
+    categorical_scale <- scale_trait_values$cat_scale
+    n <- length(categorical_scale)
+    scale_rule_first <- paste("value!=",categorical_scale[1], sep = "") #1st class of categorical trait
+    scale_rule_global <- paste(scale_rule_first,"&&","value!=",categorical_scale[2:n]) #%>%  paste(.,collapse = " && ")
+    scale_rule_global <- paste(scale_rule_global, collapse = " && ")
+    render_trait <- render_categorical(scale_condition = scale_rule_global)
+    out <- paste(render_trait)
+  }
+  
+  if(tp=="none"){
+    out <- print("")
+  }      
+  out
+}
+
+# rhandsontable(data = datos ,readOnly = FALSE) %>%
+# hot_col("NOPS",renderer = renderer)  
+

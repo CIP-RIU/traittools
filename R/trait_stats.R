@@ -1,4 +1,33 @@
-#Function to obtain the mode.
+#' Detect outlier trait values of fieldbook data
+#' @description this function calculates the outlier values using interquantile ranges to
+#' determine atypical values in trait data.
+#' @param trait_data a vector which contains the data of the trait
+#' @param f parameter for determining exteme values. By default it's 3.
+#' @return Return a list of two values ol(lower outlier bound) and lu(upper outlier bound) 
+#' @author Raul Eyzaguirre
+#' @export
+
+outlier_val <- function(trait_data, f = 3){
+  
+  linf <- (quantile(trait_data, 0.25, na.rm = T) - f * IQR(trait_data, na.rm = T))[[1]]
+  lsup <- (quantile(trait_data, 0.75, na.rm = T) + f * IQR(trait_data, na.rm = T))[[1]]
+  
+  if(is.na(linf) && is.na(lsup)){
+    linf <- -100000000000000
+    lsup <-  100000000000000
+  }
+    
+  if(linf == lsup){
+    linf <- -100000000000000
+    lsup <-  100000000000000
+  }
+  out <- list(ol = linf, ou = lsup)
+}
+
+#' Mode of the data.
+#' @description An statistical function to obtain the mode.
+#' @param x A vector which contains the trait data.
+#' @export 
 themode <-function(x){
   tv=table(x)
   paste(names(tv[tv==max(tv)]),collapse=", ")

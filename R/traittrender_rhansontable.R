@@ -16,7 +16,9 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   fieldbook$INSTN <- as.factor(fieldbook$INSTN)
   
   #Validator validates all the trait which produce render_values different from ("")
-  validator <- lapply(trait,function(x) v <- render_trait(trait = x,trait_dict = trait_dict))
+  #validator <- lapply(trait,function(x) v <- render_trait(trait = x,trait_dict = trait_dict))
+  validator <- lapply(trait,function(x) v <- render_trait_ext(data=fieldbook, trait = x,trait_dict = trait_dict))
+  
   trait <- trait[validator!=""]
   n <- length(trait)
   
@@ -24,7 +26,8 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   renderer_trait <-  list()
   for(i in 1:n){
       out_temp[[1]]<- rhandsontable::rhandsontable(data = fieldbook, readOnly = FALSE, useTypes = TRUE) #%>%  
-      renderer_trait[[i]] <- render_trait(trait[i],trait_dict)
+      #renderer_trait[[i]] <- render_trait(trait[i],trait_dict)
+      renderer_trait[[i]] <- render_trait_ext(data=fieldbook, trait[i], trait_dict)
       #if(renderer_trait[[i]]==""){print("no render trait column")}
       #if(renderer_trait[[i]]!=""){
       j <- i+1
@@ -39,7 +42,10 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   k <- n+1
   out_temp[[k]] %>%
     rhandsontable::hot_table(highlightCol = TRUE, highlightRow = TRUE) %>%
-    rhandsontable::hot_cols(fixedColumnsLeft = 3)
+    rhandsontable::hot_cols(fixedColumnsLeft = 3)  %>%
+    hot_rows(fixedRowsTop = 1)
+  
+  
 #     hot_cols(colWidths = 100) %>%
 #     hot_rows(rowHeights = 50)
   

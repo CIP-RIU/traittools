@@ -2,7 +2,7 @@
 % Please edit documentation in R/trait_tools.R
 \name{render_categorical}
 \alias{render_categorical}
-\title{Javascript generator for cualitative trait renders}
+\title{RJavascript generator for cualitative trait renders}
 \usage{
 render_categorical(scale_condition)
 }
