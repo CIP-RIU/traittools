@@ -36,19 +36,28 @@ shinyServer(function(input, output, session) {
       hot_plot_size <- get_fb_param(hot_param,"Plot size (m2)")
       hot_plant_den <- get_fb_param(hot_param,"Planting density (plants/Ha)")
       hot_params_list <- list(hot_design = hot_design, hot_plot_size = hot_plot_size,
-                              hot_plant_size =  hot_plant_den)
+                              hot_plant_den =  hot_plant_den)
     }
   })  
-    hot_crop <- reactive({
+  
+  hot_crop <- reactive({
       hot_file <- hot_path()
       if(length(hot_file)==0){return (NULL)}
       if(length(hot_file)>0){
         hot_param <- readxl::read_excel(path=hot_file , sheet = "Minimal")
         hot_crop <- get_fb_param(hot_param,"Crop")
       }
+   })
+  
+  hot_trial <- reactive({
+    hot_file <- hot_path()
+    if(length(hot_file)==0){return (NULL)}
+    if(length(hot_file)>0){
+      hot_param <- readxl::read_excel(path=hot_file , sheet = "Minimal")
+      hot_crop <- get_fb_param(hot_param,"Type of Trial")
+    }
   })
-  
-  
+
   output$hot_btable = renderRHandsontable({
     
     values  <-  shiny::reactiveValues(
@@ -90,12 +99,13 @@ shinyServer(function(input, output, session) {
       traits <- get_trait_fb(DF)
       saveRDS(DF,"hot_fieldbook.rds")
       crop <- hot_crop()
-      if(crop == "potato"){ trait_dict <- potato_yield }
-      if(crop == "sweetpotato"){ trait_dict <- sweetpotato_yield }
-      
+      print(crop)
+      trial <- hot_trial()
+      print(trial)
+      trait_dict <- get_crop_ontology(crop = crop,trial = trial)
+      print(head(trait_dict))
       traittools::col_render_trait(fieldbook = DF,trait = traits ,trait_dict = trait_dict)
-      
-      
+
     }
     #}
  
@@ -106,30 +116,33 @@ shinyServer(function(input, output, session) {
      withProgress(message = "Downloading Fieldbook and Applying Format...",value= 0,
                   {
      DF <- readRDS("hot_fieldbook.rds")
-     
+   
      trait <- get_trait_fb(DF)
      crop <- hot_crop()
-     if(crop == "potato"){ trait_dict <- potato_yield }
-     if(crop == "sweetpotato"){ trait_dict <- sweetpotato_yield }
-     
+     trial <- hot_trial()
+     trait_dict <- get_crop_ontology(crop = crop,trial = trial)
+    
      validator <- is.element(trait,trait_dict$ABBR)
      trait <- trait[validator]
      
      hot_design <- as.character(hot_params()$hot_design)
      summary <- trait_summary_join(fieldbook = DF, genotype = "INSTN",trait = trait, 
                                    design = hot_design, trait_dict = trait_dict)
+     
      hot_file <- hot_path() 
      wb <- openxlsx::loadWorkbook(hot_file)
      sheets <- readxl::excel_sheets(path = hot_file)
      
+    
      if("Fieldbook" %in% sheets){    
        openxlsx::removeWorksheet(wb, "Fieldbook")
      }
+     
      if("Summary" %in% sheets){    
        openxlsx::removeWorksheet(wb, "Summary")
        # openxlsx::saveWorkbook(wb = wb, file = file, overwrite = TRUE) 
      }
-     
+ 
      openxlsx::addWorksheet(wb = wb,sheetName = "Fieldbook",gridLines = TRUE)
      openxlsx::writeDataTable(wb,sheet = "Fieldbook",x = DF,colNames = TRUE, withFilter = FALSE)
      
@@ -139,11 +152,10 @@ shinyServer(function(input, output, session) {
      openxlsx::saveWorkbook(wb = wb, file = hot_file, overwrite = TRUE) 
      traits <- traittools::get_trait_fb(DF)
      traittools::col_validation_trait(file = hot_file,fbsheet = "Fieldbook",trait = traits,trait_dict = trait_dict)
-     
+   
      shell.exec(hot_file)
-    
-   })
+     })
      
-   })  
+})  
   
 })

@@ -12,13 +12,26 @@
 NULL
 
 
+#' @name potato_bulking
+#' @title Trait dictionary for potato tuber bulking 
+#' @docType data
+#' @aliases potato_bulking
+#' @description This data set contains a trait dicionary based on Crop Ontology template for
+#' Tuber Bulking trial in Potato. This trait dictionary is developed at International
+#' Potato Center.
+#' @references This data dictionary is related to CO_330
+#' @usage potato_bulking
+#' @format A data frame with 39 columns and 53 rows.
+#' @source International Potato Center, potato experimental data.
+NULL
+
 
 #' @name sweetpotato_yield
 #' @title Trait dictionary for Sweetpotato Yield Trial 
 #' @docType data
 #' @aliases sweetpotato_yield
 #' @description This data set contains a trait dicionary based on Crop Ontology template for
-#' Healthy Tuber and Yield trail in sweetpotato. This trait dictionary is developed at International
+#' Healthy Tuber and Yield trail in Sweetpotato. This trait dictionary is developed at International
 #' Potato Center.
 #' @references This data dictionary is related to CO_331
 #' @usage sweetpotato_yield

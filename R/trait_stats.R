@@ -70,7 +70,7 @@ trait_summary <- function(fieldbook, trait, genotype=NA, factor = NA, trait_dict
   measurevar <- lbl    #the trait's name
   tp <- get_trait_type(trait = trait, trait_dict = trait_dict )    #the type of variable
   
-  if(tp=="Continuous" || tp=="Discrete"){
+  if(tp=="Continuous" || tp=="Discrete" || tp== "none"){
     # filter continuous and discrete data
     
     if(!is.element(factor,names(fieldbook))){
@@ -122,6 +122,8 @@ trait_summary <- function(fieldbook, trait, genotype=NA, factor = NA, trait_dict
 
 summary_by_design <-function(fieldbook, trait, genotype, factor,
                              design = "Randomized Complete Block Design (RCBD)", trait_dict){
+  
+  fieldbook <- as.data.frame(fieldbook)
   
   if(design == "Randomized Complete Block Design (RCBD)"){
     out <- trait_summary(fieldbook = fieldbook, trait = trait,
