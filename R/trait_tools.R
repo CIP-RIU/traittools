@@ -299,6 +299,7 @@ render_trait<- function(trait,trait_dict){
 
 render_trait_ext<- function(data,trait,trait_dict){
   
+  print(trait)
   tp <- get_trait_type(trait,trait_dict)  
   scale_trait_values <- get_scale_trait(trait = trait,trait_dict = trait_dict)
   

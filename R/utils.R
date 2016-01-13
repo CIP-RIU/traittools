@@ -81,7 +81,7 @@ get_crop_ontology <- function(crop,trial){
     if(trial=="yield") trait_dict <- potato_yield 
     #if(trial=="Mother&Baby") trait_dict <- potato_motherbaby
     #if(trial=="late blight") trait_dict <- potato_lteblight
-    #if(trial=="drought tolerance") trait_dict <- potato_drought
+    if(trial=="drought tolerance") trait_dict <- potato_drought
     #if(trial=="dormancy") trait_dict <- potato_dormancy
     if(trial=="bulking") trait_dict <- potato_bulking
   }

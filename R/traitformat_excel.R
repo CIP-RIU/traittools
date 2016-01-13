@@ -72,7 +72,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
 
 col_validation_trait <- function(file,fbsheet,trait,trait_dict){
   
-  lapply(trait,function(x) out <- col_validation(file, fbsheet, trait=x, trait_dict = trait_dict ))
+  lapply(trait,function(x) out <- col_validation(file, fbsheet, trait = x, trait_dict = trait_dict ))
   
 }
 

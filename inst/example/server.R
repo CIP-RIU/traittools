@@ -78,10 +78,9 @@ shinyServer(function(input, output, session) {
       #hot_file <- as.character(parseFilePaths(volumes, input$file)$datapath)
       #hot_file <- hot_path()
       hot_plot_size <- as.numeric(hot_params()$hot_plot_size)
-      print(hot_plot_size)
+     
       hot_plant_den <- as.numeric(hot_params()$hot_plant_den)
-      print(hot_plant_den)
-      
+     
       #installation_sheet<- traittools::get_sheet_data(file=hot_file,sheet <- "Installation")
       #plot_size  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Plot size"),"Value"])
       #plant_den  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Planting density"),"Value"])
@@ -99,11 +98,8 @@ shinyServer(function(input, output, session) {
       traits <- get_trait_fb(DF)
       saveRDS(DF,"hot_fieldbook.rds")
       crop <- hot_crop()
-      print(crop)
       trial <- hot_trial()
-      print(trial)
       trait_dict <- get_crop_ontology(crop = crop,trial = trial)
-      print(head(trait_dict))
       traittools::col_render_trait(fieldbook = DF,trait = traits ,trait_dict = trait_dict)
 
     }
@@ -121,39 +117,53 @@ shinyServer(function(input, output, session) {
      crop <- hot_crop()
      trial <- hot_trial()
      trait_dict <- get_crop_ontology(crop = crop,trial = trial)
-    
+     
      validator <- is.element(trait,trait_dict$ABBR)
      trait <- trait[validator]
-     
+    
      hot_design <- as.character(hot_params()$hot_design)
+     
+     if(is.element("FACTOR", names(DF))){
+       summary <- trait_summary_join(fieldbook = DF, genotype = "INSTN",factor="FACTOR",trait = trait, 
+                                     design = hot_design, trait_dict = trait_dict)
+     }
+     print("ok")
+     if(!is.element("FACTOR", names(DF))){
      summary <- trait_summary_join(fieldbook = DF, genotype = "INSTN",trait = trait, 
                                    design = hot_design, trait_dict = trait_dict)
+     }
+     #print(summary)
      
      hot_file <- hot_path() 
+     print(hot_file)
+     
      wb <- openxlsx::loadWorkbook(hot_file)
      sheets <- readxl::excel_sheets(path = hot_file)
      
-    
-     if("Fieldbook" %in% sheets){    
+     if(is.element("Fieldbook",sheets)){    
        openxlsx::removeWorksheet(wb, "Fieldbook")
      }
-     
-     if("Summary" %in% sheets){    
+    
+     if(is.element("Summary",sheets)){    
        openxlsx::removeWorksheet(wb, "Summary")
        # openxlsx::saveWorkbook(wb = wb, file = file, overwrite = TRUE) 
      }
- 
+    
      openxlsx::addWorksheet(wb = wb,sheetName = "Fieldbook",gridLines = TRUE)
-     openxlsx::writeDataTable(wb,sheet = "Fieldbook",x = DF,colNames = TRUE, withFilter = FALSE)
-     
+     openxlsx::writeDataTable(wb,sheet = "Fieldbook", x = DF,colNames = TRUE, withFilter = FALSE)
+    
      openxlsx::addWorksheet(wb = wb,sheetName = "Summary",gridLines = TRUE)
-     openxlsx::writeDataTable(wb,sheet = "Summary",x = summary ,colNames = TRUE, withFilter = FALSE)
+     openxlsx::writeDataTable(wb,sheet = "Summary", x = summary ,colNames = TRUE, withFilter = FALSE)
      
      openxlsx::saveWorkbook(wb = wb, file = hot_file, overwrite = TRUE) 
+     
      traits <- traittools::get_trait_fb(DF)
+    
      traittools::col_validation_trait(file = hot_file,fbsheet = "Fieldbook",trait = traits,trait_dict = trait_dict)
-   
+     traittools::col_trait_outlier(file = hot_file, sumsheet = "Summary",trait = trait)
+     
      shell.exec(hot_file)
+     
      })
      
 })  
