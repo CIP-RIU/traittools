@@ -9,7 +9,7 @@ library(shinyFiles)
 
 shinyUI(
   shinydashboard::dashboardPage(
-        dashboardHeader(title = "rhandsontable Example"),
+        dashboardHeader(title = "Data Processing"),
         dashboardSidebar(
           sidebarMenu(
             menuItem("Table", tabName = "table", icon = icon("dashboard")),

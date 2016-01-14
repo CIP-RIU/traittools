@@ -52,7 +52,7 @@ length2 <- function (x, na.rm=FALSE) {
 #' @export 
 
 trait_summary <- function(fieldbook, trait, genotype=NA, factor = NA, trait_dict, na.rm = TRUE){
-  print(trait)
+  #print(trait)
   if(missing(fieldbook)){
     stop("Please enter your data")
   }

@@ -11,13 +11,22 @@ shinyServer(function(input, output, session) {
   
   volumes <- shinyFiles::getVolumes()
   shinyFiles::shinyFileChoose(input, 'file', roots=volumes, session=session,restrictions=system.file(package='base'))
+  #shinyFileSave(input, 'save', roots=volumes, session=session, restrictions=system.file(package='base'))
+  
+  
   
   hot_path <- reactive ({
+    
+    validate(
+      need(input$file != "", label = "Please enter an XLSX file. XLS files are forbidden")
+    )
+    
     if(length(input$file)==0){return (NULL)}
     if(length(input$file)>0){
     hot_file <- as.character(parseFilePaths(volumes, input$file)$datapath)
     }
   })
+  
   
   hot_bdata <- reactive({
     hot_file <- hot_path()
@@ -127,7 +136,7 @@ shinyServer(function(input, output, session) {
        summary <- trait_summary_join(fieldbook = DF, genotype = "INSTN",factor="FACTOR",trait = trait, 
                                      design = hot_design, trait_dict = trait_dict)
      }
-     print("ok")
+    
      if(!is.element("FACTOR", names(DF))){
      summary <- trait_summary_join(fieldbook = DF, genotype = "INSTN",trait = trait, 
                                    design = hot_design, trait_dict = trait_dict)
@@ -135,7 +144,7 @@ shinyServer(function(input, output, session) {
      #print(summary)
      
      hot_file <- hot_path() 
-     print(hot_file)
+     #print(hot_file)
      
      wb <- openxlsx::loadWorkbook(hot_file)
      sheets <- readxl::excel_sheets(path = hot_file)

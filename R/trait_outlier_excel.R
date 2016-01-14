@@ -32,6 +32,8 @@ trait_outlier <- function(file,sumsheet,trait){
   negStyle <- openxlsx::createStyle(fontColour = "#330406", bgFill = "#ffa466")
   
   for(i in outlier_values){
+    #print(i)
+    if(!is.na(i))
     openxlsx::conditionalFormatting(wb, sheet = "Summary", cols =  trait_pos, 
                                     rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)
   }

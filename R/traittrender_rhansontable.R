@@ -44,7 +44,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   out_temp[[k]] %>%
     rhandsontable::hot_table(highlightCol = TRUE, highlightRow = TRUE) %>%
     rhandsontable::hot_cols(fixedColumnsLeft = 3)  %>%
-    hot_rows(fixedRowsTop = 1)
+    rhandsontable::hot_rows(fixedRowsTop = 1)
   
   
 #     hot_cols(colWidths = 100) %>%

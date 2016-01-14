@@ -10,7 +10,7 @@
 #' 
 col_validation <- function(file,fbsheet,trait,trait_dict){ 
   
-  print(trait)
+  #print(trait)
   
   ext <- tools::file_ext(file)
   if(ext!="xlsx"){ stop("traittools can not read .xls or .xlm files. Just xlsx")   }
@@ -49,6 +49,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
     #print("ok")
     #print("out_values")
     for(i in out_values)
+      if(!is.na(i))
       openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)     
   }
   
