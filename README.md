@@ -14,7 +14,7 @@ install.packages("devtools")
 Then type:
 ```{r eval=F}
 devtools::install_github("omarbenites/openxlsx")
-devtools::install_github("c5sire/shinyFiles")
+devtools::install_github("omarbenites/shinyFiles")
 devtools::install_github("omarbenites/sbformula")
 devtools::install_github("omarbenites/traittools")
 
