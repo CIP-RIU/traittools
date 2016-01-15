@@ -30,9 +30,9 @@ library(traittols)
 ### Complementary packages and tools
 
 ```{r eval=F}
-install.packages(data.table)
-install.packages(shinydashboard)
-``
+install.packages("data.table")
+install.packages("shinydashboard")
+```
 
 #Note: If you are a Windows user, please install Rtools
 
