@@ -10,7 +10,7 @@ library(shinyFiles)
 shinyServer(function(input, output, session) {
   
   volumes <- shinyFiles::getVolumes()
-  shinyFiles::shinyFileChoose(input, 'file', roots=volumes, session=session,restrictions=system.file(package='base'))
+  shinyFileChoose(input, 'file', roots=volumes, session=session,restrictions=system.file(package='base'))
   #shinyFileSave(input, 'save', roots=volumes, session=session, restrictions=system.file(package='base'))
   
   

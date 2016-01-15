@@ -16,7 +16,8 @@ Imports:
     readxl,
     tools,
     rhandsontable,
-    doBy
+    doBy,
+    shiny
 Suggest: r-base-dev,
          rhandsontable
 License: MIT + file LICENSE
