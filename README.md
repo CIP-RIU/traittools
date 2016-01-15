@@ -34,5 +34,5 @@ install.packages("data.table")
 install.packages("shinydashboard")
 ```
 
-#Note: If you are a Windows user, please install Rtools
+### Note: If you are a Windows user, please install Rtools
 
