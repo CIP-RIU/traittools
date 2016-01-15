@@ -27,9 +27,12 @@ To load the package type in your computer:
 library(traittols)
 ```
 
-#Complementary packages
+#Complementary packages and tools
 
 ```{r eval=F}
 install.packages(data.table)
 install.packages(shinydashboard)
 ``
+
+#Note: If you are a windows user, please install Rtools
+
