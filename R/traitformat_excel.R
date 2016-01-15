@@ -49,7 +49,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
     #print("ok")
     #print("out_values")
     for(i in out_values)
-      if(!is.na(i))
+      if(!is.na(i) && i!='NA')
       openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)     
   }
   
