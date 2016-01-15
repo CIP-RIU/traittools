@@ -27,7 +27,7 @@ To load the package type in your computer:
 library(traittols)
 ```
 
-#Complementary packages and tools
+### Complementary packages and tools
 
 ```{r eval=F}
 install.packages(data.table)
