@@ -69,8 +69,9 @@ shinyServer(function(input, output, session) {
       #hot_file <- as.character(parseFilePaths(volumes, input$file)$datapath)
       #hot_file <- hot_path()
       hot_plot_size <- as.numeric(hot_params()$hot_plot_size)
+      print(hot_plot_size)
       hot_plant_den <- as.numeric(hot_params()$hot_plant_den)
-      
+      print(hot_plant_den)
       
       #installation_sheet<- traittools::get_sheet_data(file=hot_file,sheet <- "Installation")
       #plot_size  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Plot size"),"Value"])
@@ -85,11 +86,12 @@ shinyServer(function(input, output, session) {
     }
 
     if(!is.null(DF)){
+      
       traits <- get_trait_fb(DF)
       saveRDS(DF,"hot_fieldbook.rds")
       crop <- hot_crop()
-      if(crop == "potato"){ trait_dict <- potato_yield}
-      if(crop == "sweetpotato"){ trait_dict <- sweetpotato_yield}
+      if(crop == "potato"){ trait_dict <- potato_yield }
+      if(crop == "sweetpotato"){ trait_dict <- sweetpotato_yield }
       
       traittools::col_render_trait(fieldbook = DF,trait = traits ,trait_dict = trait_dict)
       
@@ -103,8 +105,6 @@ shinyServer(function(input, output, session) {
      
      withProgress(message = "Downloading Fieldbook and Applying Format...",value= 0,
                   {
-                    
-       
      DF <- readRDS("hot_fieldbook.rds")
      
      trait <- get_trait_fb(DF)

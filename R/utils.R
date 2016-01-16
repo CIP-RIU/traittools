@@ -41,8 +41,12 @@ reactive_excel_fb <- function(file_id,sheet){
 get_fb_param <- function(param_data,parameter){
    #fb_param <- readxl::read_excel(path = file, sheet = sheet)
    #fb_param<- as.data.frame(fb_param)
+   
    fb_param <- as.data.frame(param_data)
-   fb_param[fb_param$Factor==parameter,2]
+   fb_param$Factor <- stringr::str_trim(fb_param$Factor,"both")
+   fb_param <- fb_param[fb_param$Factor==parameter,2]
+   #fb_param <- stringr::str_trim(fb_param,"both")
+   fb_param
  }
  
 

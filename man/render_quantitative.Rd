@@ -2,7 +2,7 @@
 % Please edit documentation in R/trait_tools.R
 \name{render_quantitative}
 \alias{render_quantitative}
-\title{Function for render quantitative traits in javascript conditions}
+\title{RJavascript generator for quantitative traits in javascript conditions}
 \usage{
 render_quantitative(ll, ul)
 }
