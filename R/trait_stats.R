@@ -28,10 +28,15 @@ outlier_val <- function(trait_data, f = 3){
 #' @description An statistical function to obtain the mode.
 #' @param x A vector which contains the trait data.
 #' @export 
-themode <-function(x){
+
+themode <-function(x,na.rm=TRUE){
   tv=table(x)
-  paste(names(tv[tv==max(tv)]),collapse=", ")
+  paste(names(tv[tv==max(tv,na.rm=na.rm)]),collapse=", ")
 }
+
+#' Lenght of the values
+#' @description A lenght modified function to manipulate data in case of missing values. 
+#' @export
 
 length2 <- function (x, na.rm=FALSE) {
   if (na.rm) sum(!is.na(x))
@@ -100,7 +105,7 @@ trait_summary <- function(fieldbook, trait, genotype=NA, factor = NA, trait_dict
       formula <- as.formula(paste(measurevar, paste(c(genotype,factor), collapse=" + "), sep=" ~ "))
     }
     
-    datac <- doBy::summaryBy(formula, data=fieldbook, FUN=c(length2,themode)) #quit the na.rm
+    datac <- doBy::summaryBy(formula, data=fieldbook, FUN=c(length2,themode), na.rm = na.rm) #quit the na.rm
     names(datac)[ names(datac) == paste(measurevar, ".length2", sep="") ] <- paste(measurevar,"_n",sep="")
     names(datac)[ names(datac) == paste(measurevar, ".themode", sep="") ] <- paste(measurevar,"_Mode",sep="")                               
   }  #Cualitativa
