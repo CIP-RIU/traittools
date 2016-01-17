@@ -27,6 +27,7 @@ outlier_val <- function(trait_data, f = 3){
 #' Mode of the data.
 #' @description An statistical function to obtain the mode.
 #' @param x A vector which contains the trait data.
+#' @param na.rm Logical value to ommit NA values
 #' @export 
 
 themode <-function(x,na.rm=TRUE){
@@ -36,6 +37,8 @@ themode <-function(x,na.rm=TRUE){
 
 #' Lenght of the values
 #' @description A lenght modified function to manipulate data in case of missing values. 
+#' @param x A vector
+#' @param na.rm Logical value to ommit NA values
 #' @export
 
 length2 <- function (x, na.rm=FALSE) {
