@@ -13,7 +13,7 @@ render_quantitative_ext(ll, ul, ol, ou)
 
 \item{ol}{lower outlier bound}
 
-\item{ul}{upper outlier bound}
+\item{ou}{upper outlier bound}
 }
 \description{
 Function to generate Javascript code for quantitative trait validation and outlier detection

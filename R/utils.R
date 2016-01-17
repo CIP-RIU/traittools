@@ -68,6 +68,31 @@ get_sheet_data <- function(file,sheet){
   #plot_size  <-  as.numeric(inst[stringr::str_detect(inst$Factor,"Plot size"),"Value"])
 }
 
+#' Get the trait dictionary acordding to crop and trial.  
+#' @description Function to obtain the trait dictionary (used in Crop Ontology) according to 
+#' crop and trial (yield, drought, late blight, Etc.).
+#' @param crop The name of the crop
+#' @param trial The name of the trial
+#' @export
+#' 
+get_crop_ontology <- function(crop,trial){
+  
+  if(crop == "potato"){
+    if(trial=="yield") trait_dict <- potato_yield 
+    #if(trial=="Mother&Baby") trait_dict <- potato_motherbaby
+    #if(trial=="late blight") trait_dict <- potato_lteblight
+    if(trial=="drought tolerance") trait_dict <- potato_drought
+    #if(trial=="dormancy") trait_dict <- potato_dormancy
+    if(trial=="bulking") trait_dict <- potato_bulking
+  }
+  
+  if(crop == "sweetpotato"){ 
+    if(trial=="yield") trait_dict <- sweetpotato_yield 
+  }
+  
+  trait_dict
+}
+
 #' Post the fieldbook data into excel files
 #' @description This function gets all the data from excel files. 
 #' @param file The file name

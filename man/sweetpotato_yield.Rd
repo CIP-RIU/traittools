@@ -13,7 +13,7 @@ sweetpotato_yield
 }
 \description{
 This data set contains a trait dicionary based on Crop Ontology template for
-Healthy Tuber and Yield trail in sweetpotato. This trait dictionary is developed at International
+Healthy Tuber and Yield trail in Sweetpotato. This trait dictionary is developed at International
 Potato Center.
 }
 \references{

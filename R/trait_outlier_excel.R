@@ -26,18 +26,21 @@ trait_outlier <- function(file,sumsheet,trait){
   if(is_trait){
   trait_pos <- which(names(fbsummary) == trait_mean_pattern)
   rule <- (fbsummary[,trait_sd_pattern])>(fbsummary[,trait_mean_pattern]/2) #To detect outlier
-
+  nc <- nrow(fbsummary)+1
+  
   outlier_values <- fbsummary[,trait_mean_pattern][rule]
   negStyle <- openxlsx::createStyle(fontColour = "#330406", bgFill = "#ffa466")
   
   for(i in outlier_values){
-    openxlsx::conditionalFormatting(wb, sheet = "Summary by clone", cols =  trait_pos, 
-                                    rows = 2:(nrow(fbsummary)+1), rule = sprintf("==%s", i),style = negStyle)
+    #print(i)
+    if(!is.na(i))
+    openxlsx::conditionalFormatting(wb, sheet = "Summary", cols =  trait_pos, 
+                                    rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)
   }
   openxlsx::saveWorkbook(wb,file,overwrite=TRUE)
   #shell.exec(file)
   }
-}
+}  
 
 
 #' Detect outlier values into trait columns of summarized fieldbook spreadsheets (Excel)  
@@ -46,15 +49,8 @@ trait_outlier <- function(file,sumsheet,trait){
 #' @param sumsheet The name of the excel sheet which contains the summary of your fieldbook .
 #' @param trait The abbreviation of the trait used in fieldbooks.  
 #' @export
-
+  
 col_trait_outlier <- function(file,sumsheet,trait){
   
   lapply(trait,function(x) out <- trait_outlier (file, sumsheet, trait=x ))
-  
 }
-
-
-
-
-
-

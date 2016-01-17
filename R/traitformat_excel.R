@@ -9,7 +9,9 @@
 #' @export
 #' 
 col_validation <- function(file,fbsheet,trait,trait_dict){ 
-
+  
+  #print(trait)
+  
   ext <- tools::file_ext(file)
   if(ext!="xlsx"){ stop("traittools can not read .xls or .xlm files. Just xlsx")   }
   
@@ -17,7 +19,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
  
   fieldbook <- readxl::read_excel(file,sheet = fbsheet)
   fieldbook <- as.data.frame(fieldbook)
- 
+  
   tp <- get_trait_type(trait=trait,trait_dict = trait_dict)#type trait value
   scale_value <- get_scale_trait(trait = trait,trait_dict = trait_dict)
   
@@ -47,6 +49,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
     #print("ok")
     #print("out_values")
     for(i in out_values)
+      if(!is.na(i))
       openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)     
   }
   
@@ -70,7 +73,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
 
 col_validation_trait <- function(file,fbsheet,trait,trait_dict){
   
-  lapply(trait,function(x) out <- col_validation(file, fbsheet, trait=x, trait_dict = trait_dict ))
+  lapply(trait,function(x) out <- col_validation(file, fbsheet, trait = x, trait_dict = trait_dict ))
   
 }
 

@@ -14,6 +14,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   fieldbook$PLOT <- as.integer(fieldbook$PLOT)
   fieldbook$REP <- as.integer(fieldbook$REP)
   fieldbook$INSTN <- as.factor(fieldbook$INSTN)
+  if("FACTOR" %in% names(fieldbook)) fieldbook$FACTOR<- as.factor(fieldbook$FACTOR)
   
   #Validator validates all the trait which produce render_values different from ("")
   #validator <- lapply(trait,function(x) v <- render_trait(trait = x,trait_dict = trait_dict))
@@ -43,7 +44,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   out_temp[[k]] %>%
     rhandsontable::hot_table(highlightCol = TRUE, highlightRow = TRUE) %>%
     rhandsontable::hot_cols(fixedColumnsLeft = 3)  %>%
-    hot_rows(fixedRowsTop = 1)
+    rhandsontable::hot_rows(fixedRowsTop = 1)
   
   
 #     hot_cols(colWidths = 100) %>%

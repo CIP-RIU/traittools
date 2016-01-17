@@ -168,7 +168,7 @@ get_scale_trait <- function(trait,trait_dict){
 #' @param ll lower limit values of the trait
 #' @param ul upper limmit values of the trait
 #' @param ol lower outlier bound
-#' @param ul upper outlier bound
+#' @param ou upper outlier bound
 #' @author omar benites
 #' @description Function to generate Javascript code for quantitative trait validation and outlier detection
 #' in Rhansontable 
@@ -299,6 +299,7 @@ render_trait<- function(trait,trait_dict){
 
 render_trait_ext<- function(data,trait,trait_dict){
   
+  #print(trait)
   tp <- get_trait_type(trait,trait_dict)  
   scale_trait_values <- get_scale_trait(trait = trait,trait_dict = trait_dict)
   
