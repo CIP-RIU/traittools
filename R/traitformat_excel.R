@@ -46,13 +46,20 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
     
     #print(out$cat_scale)
     out_values <- col_trait[!is.element(el = col_trait,set = scale_value$cat_scale)]
+    #out_values <- as.numeric(out_values)
     #print("ok")
     #print("out_values")
     for(i in out_values)
       #if(!is.na(i) || i!="[[:alpha:]]||[[:punct:]]")
-      if(!is.na(i) || !stringr::str_detect(i,"[[:alpha:]]||[[:punct:]]")){
+      #|| !stringr::str_detect(i,"[[:alpha:]]||[[:punct:]]"
+      #chars <-  stringr::str_detect(trait_data,"[[:alpha:]]||[[:punct:]]"))
+       print(i)
+      if(!is.na(i)){
+           if(i!="NA"){
                 openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, 
-                               rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)}
+                               rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)
+         }
+      }
   
     }
 

@@ -15,9 +15,9 @@ outlier_val <- function(trait_data, f = 3){
   
   #print(trait_data)
   #print("pass")
-  linf <- (quantile(trait_data, 0.25, na.rm = T) - f * IQR(trait_data, na.rm = T))[[1]]
+  linf <- (quantile(trait_data, 0.25, na.rm = T) - f * IQR(trait_data, na.rm = TRUE))[[1]]
   
-  lsup <- (quantile(trait_data, 0.75, na.rm = T) + f * IQR(trait_data, na.rm = T))[[1]]
+  lsup <- (quantile(trait_data, 0.75, na.rm = T) + f * IQR(trait_data, na.rm = TRUE))[[1]]
   
   
   
