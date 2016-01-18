@@ -10,7 +10,7 @@
 #' 
 col_validation <- function(file,fbsheet,trait,trait_dict){ 
   
-  #print(trait)
+  print(trait)
   
   ext <- tools::file_ext(file)
   if(ext!="xlsx"){ stop("traittools can not read .xls or .xlm files. Just xlsx")   }
@@ -49,6 +49,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
     #out_values <- as.numeric(out_values)
     #print("ok")
     #print("out_values")
+    if(length(out_values)>0){
     for(i in out_values)
       #if(!is.na(i) || i!="[[:alpha:]]||[[:punct:]]")
       #|| !stringr::str_detect(i,"[[:alpha:]]||[[:punct:]]"
@@ -60,7 +61,8 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
                                rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)
          }
       }
-  
+    } 
+    
     }
 
   if(tp=="none"){

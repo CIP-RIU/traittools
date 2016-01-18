@@ -123,8 +123,7 @@ shinyServer(function(input, output, session) {
      withProgress(message = "Downloading Fieldbook and Applying Format...",value= 0,
                   {
      DF <- readRDS("hot_fieldbook.rds")
-     
-     
+
      trait <- get_trait_fb(DF)
      crop <- hot_crop()
      trial <- hot_trial()
@@ -160,13 +159,13 @@ shinyServer(function(input, output, session) {
        openxlsx::removeWorksheet(wb, "Summary")
        # openxlsx::saveWorkbook(wb = wb, file = file, overwrite = TRUE) 
      }
-    
+     
      openxlsx::addWorksheet(wb = wb,sheetName = "Fieldbook",gridLines = TRUE)
      openxlsx::writeDataTable(wb,sheet = "Fieldbook", x = DF,colNames = TRUE, withFilter = FALSE)
     
      openxlsx::addWorksheet(wb = wb,sheetName = "Summary",gridLines = TRUE)
      openxlsx::writeDataTable(wb,sheet = "Summary", x = summary ,colNames = TRUE, withFilter = FALSE)
-     
+#      
      openxlsx::saveWorkbook(wb = wb, file = hot_file, overwrite = TRUE) 
      
      traits <- traittools::get_trait_fb(DF)
