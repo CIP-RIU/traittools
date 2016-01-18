@@ -9,8 +9,17 @@
 
 outlier_val <- function(trait_data, f = 3){
   
+  
+  logical_val <- which(stringr::str_detect(trait_data,"[[:digit:]]")==FALSE)
+  if(length(logical_val)>0) {trait_data <- as.numeric(trait_data[-logical_val])}
+  
+  #print(trait_data)
+  #print("pass")
   linf <- (quantile(trait_data, 0.25, na.rm = T) - f * IQR(trait_data, na.rm = T))[[1]]
+  
   lsup <- (quantile(trait_data, 0.75, na.rm = T) + f * IQR(trait_data, na.rm = T))[[1]]
+  
+  
   
   if(is.na(linf) && is.na(lsup)){
     linf <- -100000000000000

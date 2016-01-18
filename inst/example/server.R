@@ -66,7 +66,7 @@ shinyServer(function(input, output, session) {
       hot_crop <- get_fb_param(hot_param,"Type of Trial")
     }
   })
-
+  
   output$hot_btable = renderRHandsontable({
     
     values  <-  shiny::reactiveValues(
@@ -99,13 +99,15 @@ shinyServer(function(input, output, session) {
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
       DF <- sbformula::sbcalculate(fb = DF,plot.size =hot_plot_size, plant.den = hot_plant_den)
-      
+      #print(DF)
     }
 
     if(!is.null(DF)){
       
       traits <- get_trait_fb(DF)
       saveRDS(DF,"hot_fieldbook.rds")
+      #print(DF)
+      #print("DF")
       crop <- hot_crop()
       trial <- hot_trial()
       trait_dict <- get_crop_ontology(crop = crop,trial = trial)
@@ -121,7 +123,8 @@ shinyServer(function(input, output, session) {
      withProgress(message = "Downloading Fieldbook and Applying Format...",value= 0,
                   {
      DF <- readRDS("hot_fieldbook.rds")
-   
+     
+     
      trait <- get_trait_fb(DF)
      crop <- hot_crop()
      trial <- hot_trial()
