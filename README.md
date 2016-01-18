@@ -14,7 +14,7 @@ install.packages("devtools")
 Then type:
 ```{r eval=F}
 devtools::install_github("omarbenites/openxlsx")
-devtools::install_github("c5sire/shinyFiles")
+devtools::install_github("omarbenites/shinyFiles")
 devtools::install_github("omarbenites/sbformula")
 devtools::install_github("omarbenites/traittools")
 
@@ -27,12 +27,12 @@ To load the package type in your computer:
 library(traittols)
 ```
 
-#Complementary packages and tools
+### Complementary packages and tools
 
 ```{r eval=F}
-install.packages(data.table)
-install.packages(shinydashboard)
-``
+install.packages("data.table")
+install.packages("shinydashboard")
+```
 
-#Note: If you are a Windows user, please install Rtools
+### Note: If you are a Windows user, please install Rtools
 
