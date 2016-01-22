@@ -33,7 +33,6 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
   negStyle <- openxlsx::createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
   posStyle <- openxlsx::createStyle(fontColour = "#006100", bgFill = "#C6EFCE")
   
-  
   if(tp == "Continuous"|| tp == "Discrete"){
     #print(out$ll)
     #print(out$ul)

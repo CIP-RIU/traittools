@@ -18,9 +18,7 @@ outlier_val <- function(trait_data, f = 3){
   linf <- (quantile(trait_data, 0.25, na.rm = T) - f * IQR(trait_data, na.rm = TRUE))[[1]]
   
   lsup <- (quantile(trait_data, 0.75, na.rm = T) + f * IQR(trait_data, na.rm = TRUE))[[1]]
-  
-  
-  
+
   if(is.na(linf) && is.na(lsup)){
     linf <- -100000000000000
     lsup <-  100000000000000
