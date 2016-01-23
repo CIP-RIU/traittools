@@ -45,12 +45,16 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
   if(tp =="Categorical"){
     
     #print(out$cat_scale)
-    out_values <- col_trait[!is.element(el = col_trait,set = scale_value$cat_scale)]
+  out_values <- col_trait[!is.element(el = col_trait,set = scale_value$cat_scale)]
+  print(out_values)
+  str(out_values)
     #print("ok")
     #print("out_values")
-    for(i in out_values)
-      if(!is.na(i))
-      openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)     
+  for(i in out_values)
+      print(i)
+      #if(!is.na(i))
+      #openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)     
+    openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = sprintf("!=", i),style = negStyle)     
   }
   
   if(tp=="none"){

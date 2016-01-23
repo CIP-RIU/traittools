@@ -8,7 +8,7 @@ library(openxlsx)
 library(shinyFiles)
 
 shinyUI(
-  shinydashboard::dashboardPage(
+  shinydashboard::dashboardPage(skin = "yellow",
         dashboardHeader(title = "Data Processing"),
         dashboardSidebar(
           sidebarMenu(
