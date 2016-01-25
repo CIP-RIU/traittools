@@ -36,58 +36,28 @@ shinyUI(
           
         tabsetPanel(
             tabPanel("Check",
-                #br(),
-                # fluidRow(
-#                    column(width = 3, #begin first column
-#                         box(
-#                            title = "Step 1: Select your fieldbook", status = "warning", 
-#                            solidHeader = TRUE, collapsible = TRUE, width = NULL,
-#                            p("Select the you Excel-XLSX file"),
-#                            shinyFilesButton('file', 'File select', 'Please select a file', FALSE)
-#                            ),
-#                         box(
-#                             title = "Step 2: Run Check and Processing", status = "warning",
-#                             solidHeader = TRUE, collapsible = TRUE, width = NULL,
-#                             p("Start Data Processing"),
-#                             actionButton("calculate", "Calculate Variables")
-#                           )
-#                       
-#                  #   ), #End of first column
-#                 ),
-                
-        #  column(width = 3,
-                 
-                 fluidRow(
-                   #shinyFiles::shi
-                   column(5, shinyFilesButton( 'file', 'File select', 'Please select a file', FALSE)),
+                fluidRow(
+                  
+                   shinyFilesButton('file', 'File select', 'Please select a file',FALSE),
+                   actionButton("calculate", "Calculate",icon("play-circle-o")),
+                   HTML('<div style="float: right; margin: 0 5px 5px 10px;">'),
+                   actionLink('exportButton', 'Download data'),
+                   HTML('</div>'),
+                   box(rHandsontableOutput("hot_btable",width = 2000),width =1500)
+                   
                    #column(5, shinyFileChoose(input, 'files', session=session,
                     #                          roots=c(wd='.'), filetypes=c('', '.txt'))),
-                   column(3, actionButton("calculate", "Calculate",icon("calculator"))),
-                   column(3, actionButton("exportButton", "Download", icon("download")))
+                   #column(3, actionButton("calculate", "Calculate",icon("calculator"))),
+                   #column(3, actionButton("exportButton", "Download", icon("download")))
                  ),
-                 tags$style(type='text/css', "#file { width:30%; margin-top: 25px;}"),
+                 
+                 tags$style(type='text/css', "#file { width:150px; margin-top: 25px;}"),
                  tags$style(HTML('#file {background-color:#0099cc; color: #ffffff}')),  
-                 tags$style(type='text/css', "#calculate { width:50%; margin-top: 25px;}"),
-                 tags$style(HTML('#calculate {background-color:#1652a9; color: #ffffff}')),
-                 tags$style(type='text/css', "#exportButton { width:50%; margin-top: 25px;}"),
-                 tags$style(HTML('#exportButton {background-color:#30c9ae; color: #ffffff}')),
+                 tags$style(type='text/css', "#calculate { width:150px; margin-top: 25px;}"),
+                 tags$style(HTML('#calculate {background-color:#21b073; color: #ffffff}'))
+                 #tags$style(type='text/css', "#exportButton { width:50%; margin-top: 25px;}"),
+                 #tags$style(HTML('#exportButton {background-color:#30c9ae; color: #ffffff}')),
 
-
-               box(rHandsontableOutput("hot_btable",width = 2000),width =1500)
-
-
-        #  )
-#             column(width = 5,offset =1,
-#                    box(
-#                      title = "Fieldbook", width = 1000, collapsible = TRUE, status = "info",
-#                      HTML('<p style="text-align:justify">'),
-#                      
-#                      actionButton("exportButton", "Download"),
-#                      rHandsontableOutput("hot_btable", width = "1000") 
-#                    )
-#                   )
-            #)
-            
                 )#end tabset Panel
       )
     )
