@@ -36,8 +36,8 @@ shinyUI(
           
         tabsetPanel(
             tabPanel("Check",
-                br(),
-               # fluidRow(
+                #br(),
+                # fluidRow(
 #                    column(width = 3, #begin first column
 #                         box(
 #                            title = "Step 1: Select your fieldbook", status = "warning", 
@@ -58,7 +58,10 @@ shinyUI(
         #  column(width = 3,
                  
                  fluidRow(
-                   column(5, shinyFilesButton('file', 'File select', 'Please select a file', FALSE)),
+                   #shinyFiles::shi
+                   column(5, shinyFilesButton( 'file', 'File select', 'Please select a file', FALSE)),
+                   #column(5, shinyFileChoose(input, 'files', session=session,
+                    #                          roots=c(wd='.'), filetypes=c('', '.txt'))),
                    column(3, actionButton("calculate", "Calculate",icon("calculator"))),
                    column(3, actionButton("exportButton", "Download", icon("download")))
                  ),

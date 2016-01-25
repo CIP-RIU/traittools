@@ -49,7 +49,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
     #print("ok")
     #print("out_values")
     if(length(out_values)>0){
-    for(i in out_values)
+    for(i in out_values){
       #if(!is.na(i) || i!="[[:alpha:]]||[[:punct:]]")
       #|| !stringr::str_detect(i,"[[:alpha:]]||[[:punct:]]"
       #chars <-  stringr::str_detect(trait_data,"[[:alpha:]]||[[:punct:]]"))
@@ -60,6 +60,7 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
                                rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)
          }
       }
+    }
     } 
     
     }
