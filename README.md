@@ -36,3 +36,5 @@ install.packages("shinydashboard")
 
 ### Note: If you are a Windows user, please install Rtools
 
+Run the trait app using traittoolsApp() or traittoolsApp2() on the console
+
