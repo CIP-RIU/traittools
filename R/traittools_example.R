@@ -15,7 +15,7 @@ traittoolsApp <- function() {
   shiny::runApp(system.file('example', package='traittools', mustWork=T), display.mode='normal')
 }
 
-#' Run a data proccessing framework using the traittools functionality
+#' Run a data proccessing framework #2 using the traittools functionality
 #' 
 #' When the function is invoked a shiny app is started showing a very simple 
 #' setup using traittools. A button summons the dialog box allowing the user to
