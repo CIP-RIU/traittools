@@ -34,9 +34,11 @@ trait_outlier <- function(file,sumsheet,trait){
   for(i in outlier_values){
     #print(i)
     if(!is.na(i))
+      if(i!="#NUM!"){
       print(i)
     openxlsx::conditionalFormatting(wb, sheet = "Summary", cols =  trait_pos, 
                                     rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)
+      }
   }
   openxlsx::saveWorkbook(wb,file,overwrite=TRUE)
   #shell.exec(file)
