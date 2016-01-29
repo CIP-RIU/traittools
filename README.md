@@ -38,3 +38,9 @@ install.packages("shinydashboard")
 
 Run the trait app using traittoolsApp() or traittoolsApp2() on the console
 
+#Currently, this module has 4 types of trials for potato and 1 for sweetpotato. The modules which are considered:
+
+-Yield
+-Late Blight
+-Bulking
+-Drought
