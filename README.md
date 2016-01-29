@@ -40,7 +40,9 @@ Run the trait app using traittoolsApp() or traittoolsApp2() on the console
 
 ####Currently, this module has 4 types of trials for potato and 1 for sweetpotato. The modules which are considered:
 
--Yield
--Late Blight
--Bulking
--Drought
+
+1. Yield
+2. Late Blight
+⋅⋅*In Crop Managment consider format dd/mm/yyyy : 12/05/2015  
+3. Drought Tolerance
+4. Bulking-Maturity
