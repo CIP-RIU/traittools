@@ -24,7 +24,8 @@ devtools::install_github("omarbenites/traittools")
 To load the package type in your computer:
 
 ```{r eval=F}
-library(traittols)
+install.packages(traittools)
+library(traittools)
 ```
 
 ### Complementary packages and tools
