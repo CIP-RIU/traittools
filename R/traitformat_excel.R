@@ -43,27 +43,13 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
    
   if(tp =="Categorical"){
     
-    #print(out$cat_scale)
-<<<<<<< HEAD
-  out_values <- col_trait[!is.element(el = col_trait,set = scale_value$cat_scale)]
-  print(out_values)
-  str(out_values)
-    #print("ok")
-    #print("out_values")
-  for(i in out_values)
-      print(i)
-      #if(!is.na(i))
-      #openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)     
-    openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = sprintf("!=", i),style = negStyle)     
-  }
-  
-=======
+
     out_values <- col_trait[!is.element(el = col_trait,set = scale_value$cat_scale)]
     #out_values <- as.numeric(out_values)
     #print("ok")
     #print("out_values")
     if(length(out_values)>0){
-    for(i in out_values)
+    for(i in out_values){
       #if(!is.na(i) || i!="[[:alpha:]]||[[:punct:]]")
       #|| !stringr::str_detect(i,"[[:alpha:]]||[[:punct:]]"
       #chars <-  stringr::str_detect(trait_data,"[[:alpha:]]||[[:punct:]]"))
@@ -74,11 +60,11 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
                                rows = 2:nc, rule = sprintf("==%s", i),style = negStyle)
          }
       }
+    }
     } 
     
     }
 
->>>>>>> 05a7baecc4f6d99efcf693d68cdada117703a2d4
   if(tp=="none"){
     print("This trait is not in trait dictionary")
   }

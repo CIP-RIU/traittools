@@ -22,7 +22,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   
   trait <- trait[validator!=""]
   n <- length(trait)
-  
+
   out_temp <- list()
   renderer_trait <-  list()
   for(i in 1:n){

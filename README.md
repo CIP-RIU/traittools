@@ -24,7 +24,8 @@ devtools::install_github("omarbenites/traittools")
 To load the package type in your computer:
 
 ```{r eval=F}
-library(traittols)
+devtools::install_github("omarbenites/traittools")
+library("traittools")
 ```
 
 ### Complementary packages and tools
@@ -36,3 +37,13 @@ install.packages("shinydashboard")
 
 ### Note: If you are a Windows user, please install Rtools
 
+Run the trait app using traittoolsApp() or traittoolsApp2() on the console
+
+####Currently, this module has 4 types of trials for potato and 1 for sweetpotato. The modules which are considered:
+
+
+1. Yield
+2. Late Blight
+  * In Crop Management consider "dd/mm/yyyy" date format. Example 12/05/2015, 05/05/2015    
+3. Drought Tolerance
+4. Bulking-Maturity
