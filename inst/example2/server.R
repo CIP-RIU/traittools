@@ -6,6 +6,8 @@ library(traittools)
 library(sbformula)
 library(openxlsx)
 library(shinyFiles)
+library(date)
+library(agricolae)
 
 shinyServer(function(input, output, session) {
   
@@ -119,7 +121,10 @@ shinyServer(function(input, output, session) {
       hot_plot_size <- as.numeric(hot_params()$hot_plot_size)
       
       hot_plant_den <- as.numeric(hot_params()$hot_plant_den)
-      
+      print(hot_plot_size)
+      print(hot_plant_den)
+      print(hot_trial())
+      print(hot_mtl())
       #installation_sheet<- traittools::get_sheet_data(file=hot_file,sheet <- "Installation")
       #plot_size  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Plot size"),"Value"])
       #plant_den  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Planting density"),"Value"])
@@ -128,9 +133,10 @@ shinyServer(function(input, output, session) {
       
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
+      print(DF)
       #DF <- sbformula::sbcalculate(fb = DF,plot.size =hot_plot_size, plant.den = hot_plant_den)
-      DF <- calculate_trait_variables(fb = DF,plot.size = hot_plot_size,
-                                      plant.den = hot_plant_den,mgt = hot_mgt(),mtl=hot_mtl(),type=hot_trial())
+      DF <- calculate_trait_variables(fb = DF,plot_size = hot_plot_size,
+                                      plant_den = hot_plant_den,mgt = hot_mgt(),mtl=hot_mtl(),trial_type=hot_trial())
       #print(DF)
     }
     
