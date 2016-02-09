@@ -12,7 +12,8 @@ library(agricolae)
 shinyServer(function(input, output, session) {
   
   volumes <- shinyFiles::getVolumes()
-  shinyFileChoose(input, 'file', roots=volumes, session=session,restrictions=system.file(package='base'))
+  shinyFileChoose(input, 'file', roots=volumes, session=session,
+                  restrictions=system.file(package='base'),filetypes=c('xlsx'))
   #shinyFileSave(input, 'save', roots=volumes, session=session, restrictions=system.file(package='base'))
 
   hot_path <- reactive ({
@@ -78,9 +79,7 @@ shinyServer(function(input, output, session) {
       #print(hot_mgt)
     }
   })
-  
-  
-  
+
   hot_mtl <- reactive({
     hot_file <- hot_path()
     if(length(hot_file)==0){return (NULL)}
@@ -93,10 +92,7 @@ shinyServer(function(input, output, session) {
   })
   #print(hot_mtl())
   
-  
   ###end extra code
-  
-  
   
   output$hot_btable = renderRHandsontable({
     
@@ -116,24 +112,18 @@ shinyServer(function(input, output, session) {
     if(input$calculate>0){
       
       #print(hot_mtl())
-      #hot_file <- as.character(parseFilePaths(volumes, input$file)$datapath)
       #hot_file <- hot_path()
       hot_plot_size <- as.numeric(hot_params()$hot_plot_size)
       
       hot_plant_den <- as.numeric(hot_params()$hot_plant_den)
-      print(hot_plot_size)
-      print(hot_plant_den)
-      print(hot_trial())
-      print(hot_mtl())
-      #installation_sheet<- traittools::get_sheet_data(file=hot_file,sheet <- "Installation")
-      #plot_size  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Plot size"),"Value"])
-      #plant_den  <-  as.numeric(installation_sheet[stringr::str_detect(installation_sheet$Factor,"Planting density"),"Value"])
-      #plot_size <- 0.05
-      #plant_den <- 50
-      
+#       print(hot_plot_size)
+#       print(hot_plant_den)
+#       print(hot_trial())
+#       print(hot_mtl())
+
       DF = values[["hot_btable"]]
       DF <- as.data.frame(DF)
-      print(DF)
+      # print(DF)
       #DF <- sbformula::sbcalculate(fb = DF,plot.size =hot_plot_size, plant.den = hot_plant_den)
       DF <- calculate_trait_variables(fb = DF,plot_size = hot_plot_size,
                                       plant_den = hot_plant_den,mgt = hot_mgt(),mtl=hot_mtl(),trial_type=hot_trial())
@@ -155,7 +145,8 @@ shinyServer(function(input, output, session) {
     #}
     
   })
-  
+
+
   shiny::observeEvent(input$exportButton, function(){
     
     withProgress(message = "Downloading Fieldbook and Applying Format...",value= 0,

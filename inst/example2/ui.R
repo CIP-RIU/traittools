@@ -24,14 +24,15 @@ shinyUI(
   dashboardBody(
   tabItems(
      tabItem(tabName = "dashboard",
-               h2("Hidal Modules"),
+               h2("HIDAP Modules"),
                p(
                  class = "text-muted",
                  paste("Building..."
                  ))
        ),
-       
-     tabItem(tabName = "data_processing",
+###########
+#begin data_processing tabItem
+  tabItem(tabName = "data_processing",
           h2("Data Quality and Processing"),   
           
         tabsetPanel(
@@ -60,7 +61,11 @@ shinyUI(
 
                 )#end tabset Panel
       )
-    )
+    )#End data_processing tabItem
+
+
+
+
   )
 )
 
