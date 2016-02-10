@@ -156,10 +156,11 @@ shinyServer(function(input, output, session) {
                    trait <- get_trait_fb(DF)
                    crop <- hot_crop()
                    trial <- hot_trial()
-                   trait_dict <- get_crop_ontology(crop = crop,trial = trial)
+                   #trait_dict <- get_crop_ontology(crop = crop,trial = trial)
+                   trait_dict <- td_crop
                    #print("2")
-                   validator <- is.element(trait,trait_dict$ABBR)
-                   trait <- trait[validator]
+                   #validator <- is.element(trait,trait_dict$ABBR)
+                   #trait <- trait[validator]
                    #print("3")
                    hot_design <- as.character(hot_params()$hot_design)
                    

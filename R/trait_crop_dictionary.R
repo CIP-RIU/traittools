@@ -65,3 +65,18 @@ NULL
 #' @format A data frame with 39 columns and 53 rows.
 #' @source International Potato Center, sweetpotato experimental data.
 NULL
+
+
+#' @name td_crop
+#' @title Trait dictionary for Potato and Sweetpotato Trials 
+#' @docType data
+#' @aliases td_crop
+#' @description This data set contains a trait dicionary based on Crop Ontology template for
+#' Potato and Sweetpotato. This trait dictionary is developed at International
+#' Potato Center.
+#' @references This data dictionary is related to CO_331
+#' @usage td_crop
+#' @format A data frame with 39 columns and 53 rows.
+#' @source International Potato Center, sweetpotato experimental data.
+NULL
+

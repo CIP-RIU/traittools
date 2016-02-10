@@ -84,7 +84,7 @@ trait_summary <- function(fieldbook, trait, genotype=NA, factor = NA, trait_dict
   lbl <- names(datos[trait])   #extract the trait's label name
   measurevar <- lbl    #the trait's name
   tp <- get_trait_type(trait = trait, trait_dict = trait_dict )    #the type of variable
-  
+  print(tp)
   if(tp=="Continuous" || tp=="Discrete" || tp== "none"){
     # filter continuous and discrete data
     
