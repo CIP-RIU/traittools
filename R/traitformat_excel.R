@@ -68,11 +68,14 @@ col_validation <- function(file,fbsheet,trait,trait_dict){
 
   if(tp=="none"){
     #print("This trait is not in trait dictionary")
-    openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols=col_number, rows=2:nc, rule=sprintf(">%s", 1000000), style = negStyle)#WRONG
-    openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols=col_number, rows=2:nc, rule=sprintf("<%s", 0), style = negStyle)#WRONG
-    openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = c(0,1000000), style = posStyle,type = "between" )
+#     openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols=col_number, rows=2:nc, rule=sprintf(">%s", 1000000), style = negStyle)#WRONG
+#     openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols=col_number, rows=2:nc, rule=sprintf("<%s", 0), style = negStyle)#WRONG
+#     openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = c(0,1000000), style = posStyle,type = "between" )
+    openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols=col_number, rows=2:nc, rule=sprintf(">%s", scale_value$ul), style = negStyle)#WRONG
+    openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols=col_number, rows=2:nc, rule=sprintf("<%s", scale_value$ll), style = negStyle)#WRONG
+    openxlsx::conditionalFormatting(wb, sheet = fbsheet, cols = col_number, rows = 2:nc, rule = c(scale_value$ll,scale_value$ul), style = posStyle,type = "between" )
     
-    
+      
   }
   
   openxlsx::saveWorkbook(wb,file = file,overwrite = TRUE)

@@ -145,8 +145,13 @@ shinyServer(function(input, output, session) {
     #}
     
   })
-
-
+  
+  output$hot_td_trait = renderRHandsontable({ 
+    td_trait <- orderBy(~ABBR, td_trait)
+    rhandsontable(data = td_trait)
+    })
+  
+  
   shiny::observeEvent(input$exportButton, function(){
     
     withProgress(message = "Downloading Fieldbook and Applying Format...",value= 0,

@@ -54,7 +54,7 @@ get_trait_name <- function(trait,trait_dict)
   stringr::str_trim(tp,side="both")
   
   if(is.na(tp) || length(tp)==0){
-    tp <- "none"
+    tp <- "It not Defined"
   }
   tp
   #return(tp)
@@ -164,9 +164,9 @@ get_scale_trait <- function(trait,trait_dict){
   
   if(tp=="none"){
     #Non-defined trait will be considered as quantative
-    print("none")
-    #ll <- 0
-    #ul <- 1000000
+    #print("none")
+    ll <- 0
+    ul <- 1000000
     #print(ll)
     #print(ul)
     output <- list(ll=ll,ul=ul)
