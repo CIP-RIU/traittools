@@ -135,13 +135,19 @@ get_trait_crop <- function(trait,trait_dict)
 #' @export
 #' 
 get_scale_trait <- function(trait,trait_dict){
-  
+  #print(trait)
   tp <- get_trait_type(trait = trait,trait_dict = trait_dict)
-  
+  #print(tp)
   if(tp=="Continuous"||tp=="Discrete"){
     
     ll <- as.numeric(trait_dict[trait_dict$ABBR==trait,c("LOWER")])
+    #In case trait is defined but dont have ll scale values will take 0
+    if(is.na(ll)) {ll <- 0}
+    #print(ll)
     ul <- as.numeric(trait_dict[trait_dict$ABBR==trait,c("UPPER")])
+    #In case trait is defined but dont have ul scale values will take 100000
+    if(is.na(ul)) {ul <- 1000000}
+    #print(ul)
     output <- list(ll=ll,ul=ul)
   }
   
@@ -151,11 +157,19 @@ get_scale_trait <- function(trait,trait_dict){
     cat_scale <- gsub(pattern=pattern,replacement = "",x = cat_scale)
     cat_scale <- suppressWarnings(as.numeric(cat_scale))
     cat_scale <- as.numeric(stringr::str_trim(cat_scale[!is.na(cat_scale)],side="both"))
+    #In case trait is defined but dont have scale values will take 1,2,3,4,5
+    if(length(cat_scale)==0) {cat_scale <- c(1,2,3,4,5)}
     output <- list(cat_scale=cat_scale)
   }
   
   if(tp=="none"){
-    output <- print("none")
+    #Non-defined trait will be considered as quantative
+    #print("none")
+    ll <- 0
+    ul <- 1000000
+    #print(ll)
+    #print(ul)
+    output <- list(ll=ll,ul=ul)
   }
   
   invisible(output)
@@ -328,7 +342,18 @@ render_trait_ext<- function(data,trait,trait_dict){
   }
   
   if(tp=="none"){
-    out <- print("")
+    #out <- print("")
+    ul <- 10000000  
+    ll <- 0
+    
+    ol <- outlier_val(data[,trait])$ol
+    ou <- outlier_val(data[,trait])$ou
+    
+    render_trait <- render_quantitative_ext(ll,ul,ol,ou)
+    out <- paste(render_trait)
+    
+    
+    
   }      
   out
 }

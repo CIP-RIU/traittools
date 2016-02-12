@@ -44,7 +44,8 @@ shinyUI(
                    HTML('<div style="float: right; margin: 0 5px 5px 10px;">'),
                    actionLink('exportButton', 'Download data'),
                    HTML('</div>'),
-                   box(rHandsontableOutput("hot_btable",width = 2000),width =1500)
+                     box(rHandsontableOutput("hot_btable",height = "1400px",width = "1400px"),
+                         height = "3400px",width ="2400px")
                    
                    #column(5, shinyFileChoose(input, 'files', session=session,
                     #                          roots=c(wd='.'), filetypes=c('', '.txt'))),
