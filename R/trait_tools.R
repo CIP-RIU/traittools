@@ -294,7 +294,7 @@ render_trait<- function(trait,trait_dict){
   }
   
   if(tp=="none"){
-    out <- print("")
+    out <- print("none")
   }      
   out
   #return(out)
