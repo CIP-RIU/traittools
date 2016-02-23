@@ -80,3 +80,18 @@ NULL
 #' @source International Potato Center, sweetpotato experimental data.
 NULL
 
+
+
+#' @name td_trait
+#' @title Trait variables for Potato and Sweetpotato Trials 
+#' @docType data
+#' @aliases td_trait
+#' @description This data set contains a trait variables based on Crop Ontology template for
+#' Potato and Sweetpotato. This trait dictionary is developed at International
+#' Potato Center.
+#' @references This data dictionary is related to CO_331
+#' @usage td_trait
+#' @format A data frame with 39 columns and 53 rows.
+#' @source International Potato Center, sweetpotato experimental data.
+NULL
+

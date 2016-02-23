@@ -2,7 +2,7 @@
 #' @export
 magrittr::`%>%`
  
-######################################################################
+#################
 #'Get the type of trait into the trait dictionary
 #' @param trait trait abreviation
 #' @param trait_dict trait dictionary

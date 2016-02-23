@@ -8,6 +8,7 @@ library(openxlsx)
 library(shinyFiles)
 library(date)
 library(agricolae)
+library(doBy)
 
 shinyServer(function(input, output, session) {
   

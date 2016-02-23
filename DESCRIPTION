@@ -5,7 +5,6 @@ Version: 1.0
 Authors@R: c(
         person("Omar","Benites",,"obacc07@gmail.com",c("aut","cre"))
         )
-Title: An banch of tools for trait manipulation
 Maintainer: Omar Benites <obacc07@gmail.com>
 Description: Package for extract trait values and create trait rules based on Trait Dictionary format from Crop Ontology .
 Depends: R (>= 3.2.2)
