@@ -151,7 +151,7 @@ get_scale_trait <- function(trait,trait_dict){
     output <- list(ll=ll,ul=ul)
   }
   
-  if(tp=="Categorical"){
+  if(tp=="Categorical"||tp=="Nomial"||tp=="Ordinal"){
     cat_scale <- trait_dict[trait_dict$ABBR == trait, c("CLASS1","CLASS2","CLASS3","CLASS4","CLASS5","CLASS6","CLASS7","CLASS8","CLASS9","CLASS10")]
     pattern <- "= .*$"
     cat_scale <- gsub(pattern=pattern,replacement = "",x = cat_scale)
