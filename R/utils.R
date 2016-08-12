@@ -32,7 +32,7 @@ mutate_excel_date <- function(date_value){
 #' 
 get_trait_fb <- function(fieldbook){
    
-   factors <-c("PLOT","INSTN","REP","FACTOR") 
+   factors <-c("PLOT","INSTN","REP","FACTOR", "ORDER","IDENTIFIED_CRITERIA", "PHASE", "STYPE") 
    trait_names <- names(fieldbook)
    trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
    trait_names 
@@ -114,21 +114,23 @@ get_sheet_data <- function(file,sheet){
 #' @param trial The name of the trial
 #' @export
 #' 
-get_crop_ontology <- function(crop,trial){
+get_crop_ontology <- function(crop,trial=NA){
   
   trial <- tolower(trial)
   if(crop == "potato"){
-    if(trial=="yield") trait_dict <- potato_yield 
-    #if(trial=="Mother&Baby") trait_dict <- potato_motherbaby
-    if(trial=="late blight") trait_dict <- potato_lb
-    #if(trial=="drought tolerance") trait_dict <- potato_drought #In DataCollector
-    if(trial=="drought") trait_dict <- potato_drought  #in HiDAp
-    #if(trial=="dormancy") trait_dict <- potato_dormancy
-    if(trial=="bulking") trait_dict <- potato_bulking
+    #if(trial=="yield") trait_dict <- potato_yield 
+    ##if(trial=="Mother&Baby") trait_dict <- potato_motherbaby
+    #if(trial=="late blight") trait_dict <- potato_lb
+    ##if(trial=="drought tolerance") trait_dict <- potato_drought #In DataCollector
+    #if(trial=="drought") trait_dict <- potato_drought  #in HiDAp
+    ##if(trial=="dormancy") trait_dict <- potato_dormancy
+    #if(trial=="bulking") trait_dict <- potato_bulking
+    trait_dict <- td_potato
   }
   
   if(crop == "sweetpotato"){ 
-    if(trial=="yield") trait_dict <- sweetpotato_yield 
+    #if(trial=="yield") trait_dict <- sweetpotato_yield 
+    trait_dict <- td_sweetpotato
   }
   
   trait_dict
