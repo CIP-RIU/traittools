@@ -11,11 +11,16 @@
 #'   
 calculate_trait_variables <- function(fb, plot_size=NA, plant_den=NA, mgt, mtl, trial_type=NA){
 
+  fb <- as.data.frame(fb, stringsAsFactors=FALSE)   
   fieldbook_names <- names(fb)
-  fieldbook<- sbcalculate(fb = fb,plot.size=plot_size,plant.den=plant_den)
+  fieldbook<- sbcalculate(fb = fb, plot.size=plot_size, plant.den=plant_den)
   
   #if(trial_type =="Late blight"){  #begin late blight
-    
+  date_logic <- !all(is.na(mgt$Date))
+  audpc_logic <- !all(is.na(mtl$Scale_audpc))    
+  
+  if(date_logic &&  audpc_logic){
+  
     rel.days <- get.rel.days(mgt)
     lb.control <- get.lb.control(mtl)
     
@@ -49,7 +54,7 @@ calculate_trait_variables <- function(fb, plot_size=NA, plant_den=NA, mgt, mtl, 
     }
     
     
-  #} #end late blight
+  } #end late blight
   
   fieldbook <- fieldbook[,fieldbook_names]
   

@@ -46,7 +46,7 @@ shinyServer(function(input, output, session) {
       hot_design <- get_fb_param(hot_param,"Experimental_design")
       
       #hot_design <- get_fb_param(hot_param,"Experimental design")
-      hot_design <- get_fb_param(hot_param,"Experimental_design")
+      #hot_design <- get_fb_param(hot_param,"Experimental_design")
       
       #hot_plot_size <- get_fb_param(hot_param,"Plot size (m2)")
       hot_plot_size <- get_fb_param(hot_param,"Plot_size_(m2)")

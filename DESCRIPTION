@@ -1,7 +1,7 @@
 Package: traittools
 Title: Tools for manipulating traits using Trait Dictionary from Crop Ontology (one line, title case)
 Date: 2015-11-12
-Version: 1.0
+Version: 1.0.1
 Authors@R: c(
         person("Omar","Benites",,"obacc07@gmail.com",c("aut","cre"))
         )

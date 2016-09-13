@@ -164,14 +164,14 @@ post_sheet_data <- function(file,sheet,fieldbook){
 get.rel.days <- function(mgt){
   
   mgt$Date <- unlist(lapply(mgt$Date,function(x){mutate_excel_date(x)}))
-  start.date = mgt[mgt$Intervention.type=="Planting","Date"]
+  start.date = mgt[mgt$Intervention_type=="Planting","Date"]
   std = as.integer(strsplit(start.date,"-")[[1]])
   std = as.integer(mdy.date(std[2],std[3],std[1]))
   
   lb = paste("Percentage of foliage affected by Late Blight",1:12)
   mgt$Date = as.character(mgt$Date)
-  mgt$Intervention.type = as.character(mgt$Intervention.type)
-  ds = mgt[mgt$Intervention.type %in% lb,"Date"]
+  mgt$Intervention_type = as.character(mgt$Intervention_type)
+  ds = mgt[mgt$Intervention_type %in% lb,"Date"]
   di = integer(length(ds))
   for(i in 1:length(ds)){
     dx = as.integer(strsplit(ds[i],"-")[[1]])
@@ -196,7 +196,7 @@ get.lb.control <-function(mtl){
   #mtl$Scale.AUDPC.control = as.integer(mtl$Scale.AUDPC.control) #in DataCollector
   mtl$Scale_audpc = as.integer(mtl$Scale_audpc) #in HiDAP
   #mtl$Institutional.number= as.character(mtl$Institutional.number) #in DataCollector
-  mtl$Institutional_number= as.character(mtl$Institutional_number) #in HiDAP
+  mtl$Institutional_number= as.character(mtl$Accession_Number) #in HiDAP
   #mtl[!is.na(mtl$Scale.AUDPC.control),c("Institutional.number","Scale.AUDPC.control")]	#in DataCollector
   mtl[!is.na(mtl$Scale_audpc),c("Institutional_number","Scale_audpc")] #in HiDAP
 }
