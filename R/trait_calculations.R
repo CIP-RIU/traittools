@@ -6,6 +6,7 @@
 #' @param plant_den plant density
 #' @param mgt Crop Managment Data
 #' @param mtl Material List Data
+#' @importFrom sbformula sbcalculate
 #' @param trial_type the type of trial
 #' @export
 #'   
@@ -25,7 +26,7 @@ calculate_trait_variables <- function(fb, plot_size=NA, plant_den=NA, mgt, mtl, 
     #mgt1 <- transform_dates(mgt = mgt) 
     mgt <- transform_dates(mgt = mgt) 
     
-    print(mgt)
+    #print(mgt)
     
     rel.days <- get.rel.days(mgt)
     lb.control <- get.lb.control(mtl)
