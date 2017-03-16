@@ -7,8 +7,9 @@ Authors@R: c(
         )
 Maintainer: Omar Benites <obacc07@gmail.com>
 Description: Package for extract trait values and create trait rules based on Trait Dictionary format from Crop Ontology .
-Depends: R (>= 3.2.2)
-Imports: 
+Depends: R (>= 3.2.2),
+         sbformula
+Imports:
     stringr,
     magrittr,
     openxlsx,
@@ -23,3 +24,4 @@ Suggest: r-base-dev,
 License: MIT + file LICENSE
 LazyData: true
 RoxygenNote: 5.0.1
+Suggests: testthat

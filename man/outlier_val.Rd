@@ -12,7 +12,7 @@ outlier_val(trait_data, f = 3)
 \item{f}{parameter for determining exteme values. By default it's 3.}
 }
 \value{
-Return a list of two values ol(lower outlier bound) and lu(upper outlier bound)
+Return a list of two values ol (lower outlier bound) and lu (upper outlier bound)
 }
 \description{
 this function calculates the outlier values using interquantile ranges to

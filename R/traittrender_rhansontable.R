@@ -11,13 +11,19 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   
   #n <- length(trait)
   fieldbook <- as.data.frame(fieldbook)
-  fieldbook$PLOT <- as.integer(fieldbook$PLOT)
-  fieldbook$REP <- as.integer(fieldbook$REP)
-  fieldbook$INSTN <- as.factor(fieldbook$INSTN)
+  #fieldbook$PLOT <- as.integer(fieldbook$PLOT)
+  #fieldbook$REP <- as.integer(fieldbook$REP)
+  #fieldbook$INSTN <- as.factor(fieldbook$INSTN)
+  if("PLOT" %in% names(fieldbook)) fieldbook$PLOT<- as.factor(fieldbook$PLOT)
+  if("REP" %in% names(fieldbook)) fieldbook$REP<- as.factor(fieldbook$REP)
+  if("INSTN" %in% names(fieldbook)) fieldbook$INSTN<- as.factor(fieldbook$INSTN)
   if("FACTOR" %in% names(fieldbook)) fieldbook$FACTOR<- as.factor(fieldbook$FACTOR)
   if("PHASE" %in% names(fieldbook)) fieldbook$PHASE<- as.factor(fieldbook$PHASE)
   if("IDENTIFIED_CRITERIA" %in% names(fieldbook)) fieldbook$IDENTIFIED_CRITERIA<- as.factor(fieldbook$IDENTIFIED_CRITERIA)
   if("STYPE" %in% names(fieldbook)) fieldbook$STYPE<- as.factor(fieldbook$STYPE)
+  if("BLOCK_ROW" %in% names(fieldbook)) fieldbook$BLOCK_ROW<- as.factor(fieldbook$BLOCK_ROW)
+  if("BLOCK_COL" %in% names(fieldbook)) fieldbook$BLOCK_COL<- as.factor(fieldbook$BLOCK_COL)
+  
   
   
   #Validator validates all the trait which produce render_values different from ("")

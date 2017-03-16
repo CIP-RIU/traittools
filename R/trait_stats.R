@@ -3,7 +3,7 @@
 #' determine atypical values in trait data.
 #' @param trait_data a vector which contains the data of the trait
 #' @param f parameter for determining exteme values. By default it's 3.
-#' @return Return a list of two values ol(lower outlier bound) and lu(upper outlier bound) 
+#' @return Return a list of two values ol (lower outlier bound) and lu (upper outlier bound) 
 #' @author Raul Eyzaguirre
 #' @export
 
@@ -68,58 +68,67 @@ length2 <- function (x, na.rm=FALSE) {
 
 trait_summary <- function(fieldbook, trait, genotype=NA, factor = NA, trait_dict, na.rm = TRUE){
   #print(trait)
+  
   if(missing(fieldbook)){
     stop("Please enter your data")
   }
+  
   if(missing(trait)){
     stop("Please enter the name or position of the trait")
   }
+  
   if(missing(genotype)){
     stop("Please enter the name of columns that contain genotypes")
   }
   
-  
   datos <- as.data.frame(fieldbook)
   vvv <- datos[,trait]
+  print(trait)
   lbl <- names(datos[trait])   #extract the trait's label name
   measurevar <- lbl    #the trait's name
+  
   tp <- get_trait_type(trait = trait, trait_dict = trait_dict )    #the type of variable
   print(tp)
-  if(tp=="Continuous" || tp=="Discrete" || tp== "none"){
+  
+  if(tp == "Continuous" || tp == "Discrete" || tp == "none" || tp == "Numerical"){
     # filter continuous and discrete data
-    
+    print("continuous")
     if(!is.element(factor,names(fieldbook))){
     formula <- as.formula(paste(measurevar, paste(genotype, collapse=" + "), sep=" ~ "))
     }
-    
+    print("continuous2")
     if(is.element(factor,names(fieldbook))){
     formula <- as.formula(paste(measurevar, paste(c(genotype,factor), collapse=" + "), sep=" ~ "))
     }
     
     datac <- doBy::summaryBy(formula, data=fieldbook, FUN=c(length2,mean,sd), na.rm=na.rm)
     # Rename columns
+    print("continuous3")
     names(datac)[ names(datac) == paste(measurevar, ".length2", sep="") ] <- paste(measurevar,"_n",sep="")
     names(datac)[ names(datac) == paste(measurevar, ".mean",    sep="") ] <- paste(measurevar,"_Mean",sep="")  
     names(datac)[ names(datac) == paste(measurevar, ".sd",      sep="") ] <- paste(measurevar,"_sd",sep = "")
+    print("continuous4")
   }  #Cuantitativa
   
-  if(tp=="Categorical"){
+  if(tp == "Categorical" || tp == "Ordinal"|| tp == "Nominal"){
     #filter categorical data
     #formula <- as.formula(paste(measurevar, paste(groupfactors, collapse=" + "), sep=" ~ "))
-    
+    print("continuous5")
     if(!is.element(factor,names(fieldbook))){
       formula <- as.formula(paste(measurevar, paste(genotype, collapse=" + "), sep=" ~ "))
     }
-    
+    print("continuous6")
     if(is.element(factor,names(fieldbook))){
       formula <- as.formula(paste(measurevar, paste(c(genotype,factor), collapse=" + "), sep=" ~ "))
     }
-    
+    print("continuous7")
     datac <- doBy::summaryBy(formula, data=fieldbook, FUN=c(length2,themode), na.rm = na.rm) #quit the na.rm
     names(datac)[ names(datac) == paste(measurevar, ".length2", sep="") ] <- paste(measurevar,"_n",sep="")
-    names(datac)[ names(datac) == paste(measurevar, ".themode", sep="") ] <- paste(measurevar,"_Mode",sep="")                               
+    names(datac)[ names(datac) == paste(measurevar, ".themode", sep="") ] <- paste(measurevar,"_Mode",sep="")   
+    print("continuous8")
   }  #Cualitativa
   
+  #datac <- datac
   return(datac)
 }
 
@@ -135,13 +144,20 @@ trait_summary <- function(fieldbook, trait, genotype=NA, factor = NA, trait_dict
 #' @export
 #'   
 
-summary_by_design <-function(fieldbook, trait, genotype, factor,
-                             design = "RCBD", trait_dict){
+summary_by_design <-function(fieldbook, trait, genotype, factor, design = "RCBD", trait_dict){
                              #design = "Randomized Complete Block Design (RCBD)", trait_dict){
   
   fieldbook <- as.data.frame(fieldbook)
   
   #if(design == "Randomized Complete Block Design (RCBD)"){
+  
+  
+  # if(design == "UNRD"){
+  #   out <- trait_summary(fieldbook = fieldbook, trait = trait,
+  #                        genotype= genotype, factor=NA, trait_dict = trait_dict, na.rm = TRUE)
+  # }
+  
+  
   if(design == "RCBD"){
     out <- trait_summary(fieldbook = fieldbook, trait = trait,
                          genotype= genotype, factor=NA, trait_dict = trait_dict, na.rm = TRUE)
@@ -197,7 +213,7 @@ summary_by_design <-function(fieldbook, trait, genotype, factor,
   }
   
   #if (design == "Alpha(0,1) Design (A01D)"){
-  if (design == "A01D"){
+  if (design == "A01D" || design== 'AD'){
     out <- trait_summary(fieldbook = fieldbook, trait = trait,
                          genotype= genotype, factor=NA, trait_dict = trait_dict, na.rm = TRUE)            
   }
@@ -224,12 +240,12 @@ merge.all <- function(x, y, bycol) {
 #' @export
 #' 
 
-trait_summary_join <- function(fieldbook, trait, genotype = NA, factor =NA, 
-                               design= "Randomized Complete Block Design (RCBD)", trait_dict){
+trait_summary_join <- function(fieldbook, trait, genotype = NA, factor =NA, design= "RCBD", trait_dict){
 
     if(!is.data.frame(fieldbook)){print("Please enter data.frame")}  
       
      trait <- trait
+     print(trait)
      summary_list <- lapply(trait, function(x) summary_by_design(fieldbook= fieldbook, trait = x,genotype = genotype,
                                                                   factor=factor, design = design, trait_dict = trait_dict))
 

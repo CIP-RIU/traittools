@@ -13,14 +13,23 @@
 #'
 mutate_excel_date <- function(date_value){
   
+  #date_value initilly has his format: dd-mm-yyyy in the excel file and internally R transforms to 
   date_value <- gsub("/","-",date_value)
   std  <-  as.integer(strsplit(date_value,"-")[[1]])
-  if(nchar(std[1])==4){
-    date_value <- paste(std[1],std[3],std[2],sep = "-")
+  if(nchar(std[1])==4){ #if the first split is the year (four characters)
+    #format: yyyy-dd-mm 
+    date_value <- paste(std[1],std[3],std[2], sep = "-")
+    #date_value <- paste(std[1],std[2],std[3],sep = "-") #for chiara's book (kunningLB042015)
   }
-  if(nchar(std[1])==2){
+  if(nchar(std[1])==2){ #If std only have two numbers (for example 15-10-2015)
+    #format: yyyy-dd-mm
+    date_value <- paste(std[3],std[2],std[1],sep = "-")
+   }# else {
+   if(nchar(std[1])==1){ #If std only have one number in the date (for example 8-8-2015)
+    #date_value <- paste(std[3],std[2],std[1],sep = "-")
     date_value <- paste(std[3],std[2],std[1],sep = "-")
   }
+  
     date_value
 }
 
@@ -31,12 +40,14 @@ mutate_excel_date <- function(date_value){
 #' @export
 #' 
 get_trait_fb <- function(fieldbook){
-   
-   factors <-c("PLOT","INSTN","REP","FACTOR", "ORDER","IDENTIFIED_CRITERIA", "PHASE", "STYPE") 
+   #filter values which will not be evaluated becasuse dont have scale
+   #EDATE AND DATESP are dates so they need to be removed from analyisis and rendering tables
+   factors <-c("PLOT","INSTN","REP","BLOCK","FACTOR", "ORDER","IDENTIFIED_CRITERIA","EDATE","DATESP", "PHASE", "STYPE","BLOCK_ROW", "BLOCK_COL") 
    trait_names <- names(fieldbook)
    trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
-   trait_names 
-   
+   trait_names <- stringr::str_trim(trait_names, side = "both")
+   trait_names <- trait_names[trait_names!=""]
+   trait_names
  }
  
  #' Read fieldbooks in reactive enviorment (Shiny)
@@ -156,6 +167,16 @@ post_sheet_data <- function(file,sheet,fieldbook){
 }
 #Not run #traittools::post_sheet_data(file = hot_file,sheet = "Fieldbook",fieldbook = DF)
 
+#' lapply transformation of dates using mutate_excel_date
+#' @description Transformation of dates using mgt
+#' @param mgt crop management sheet or table
+#' @export
+#' 
+transform_dates <- function(mgt){
+   mgt$Date <- unlist(lapply(mgt$Date,function(x){mutate_excel_date(x)}))
+   mgt
+}
+
 #' Get Relative Dates for Area Under the Curve(AUDPC)
 #' @description mgt function calculate relative days for Late Blight Resistance. 
 #' @param mgt The crop managemente data
@@ -163,7 +184,8 @@ post_sheet_data <- function(file,sheet,fieldbook){
 #' 
 get.rel.days <- function(mgt){
   
-  mgt$Date <- unlist(lapply(mgt$Date,function(x){mutate_excel_date(x)}))
+  mgt <- mgt
+  
   start.date = mgt[mgt$Intervention_type=="Planting","Date"]
   std = as.integer(strsplit(start.date,"-")[[1]])
   std = as.integer(mdy.date(std[2],std[3],std[1]))
@@ -171,12 +193,19 @@ get.rel.days <- function(mgt){
   lb = paste("Percentage of foliage affected by Late Blight",1:12)
   mgt$Date = as.character(mgt$Date)
   mgt$Intervention_type = as.character(mgt$Intervention_type)
+  
+  #print(mgt)
+  
+  
   ds = mgt[mgt$Intervention_type %in% lb,"Date"]
   di = integer(length(ds))
   for(i in 1:length(ds)){
     dx = as.integer(strsplit(ds[i],"-")[[1]])
+  
     if(length(dx)==3){
+      #print(date::mdy.date(dx[2],dx[3],dx[1])	)
       di[i] = date::mdy.date(dx[2],dx[3],dx[1])	
+      #print(di[i])
     } else {
       break
     }
@@ -186,12 +215,15 @@ get.rel.days <- function(mgt){
   #di[1] = di[1]+1
   #print(di)
   di #GTDM-43
+  #print(mgt)
+  #print(di)
 }
 
 #' Get the scale for late blight test to compare with other genotypes
 #' @description Function calculate relative days for Late Blight Resistance. 
 #' @param mtl The material list data
 #' @export
+#' 
 get.lb.control <-function(mtl){
   #mtl$Scale.AUDPC.control = as.integer(mtl$Scale.AUDPC.control) #in DataCollector
   mtl$Scale_audpc = as.integer(mtl$Scale_audpc) #in HiDAP

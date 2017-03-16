@@ -5,7 +5,7 @@
 \title{Join all the summarized results of fieldbook's traits}
 \usage{
 trait_summary_join(fieldbook, trait, genotype = NA, factor = NA,
-  design = "Randomized Complete Block Design (RCBD)", trait_dict)
+  design = "RCBD", trait_dict)
 }
 \arguments{
 \item{fieldbook}{A data.frame with the fieldbook data.}
