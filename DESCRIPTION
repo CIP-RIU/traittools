@@ -7,8 +7,7 @@ Authors@R: c(
         )
 Maintainer: Omar Benites <obacc07@gmail.com>
 Description: Package for extract trait values and create trait rules based on Trait Dictionary format from Crop Ontology .
-Depends: R (>= 3.2.2),
-         sbformula
+Depends: R (>= 3.2.2)
 Imports:
     stringr,
     magrittr,
@@ -18,7 +17,8 @@ Imports:
     rhandsontable,
     doBy,
     shiny,
-    date
+    date,
+    sbformula
 Suggest: r-base-dev,
          rhandsontable
 License: MIT + file LICENSE
