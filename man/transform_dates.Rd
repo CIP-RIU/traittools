@@ -12,4 +12,3 @@ transform_dates(mgt)
 \description{
 Transformation of dates using mgt
 }
-

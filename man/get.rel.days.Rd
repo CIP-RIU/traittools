@@ -12,4 +12,3 @@ get.rel.days(mgt)
 \description{
 mgt function calculate relative days for Late Blight Resistance.
 }
-

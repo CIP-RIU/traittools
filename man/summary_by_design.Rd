@@ -26,4 +26,3 @@ Return a data.frame summary based on statistical designs.
 \description{
 This function make a easy summary by clone (and treatment) based on statistical design
 }
-

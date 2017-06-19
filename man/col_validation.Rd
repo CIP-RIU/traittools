@@ -22,4 +22,3 @@ An excel file with conditional format according trait conditions
 \description{
 This function use openxlsx package to give conditional format for fieldbook spreadsheet
 }
-

@@ -22,4 +22,3 @@ An excel file with conditional format according trait conditions
 \description{
 This function highlight all the values which are out of range in a fieldbook spreadsheet
 }
-

@@ -24,4 +24,3 @@ calculate_trait_variables(fb, plot_size = NA, plant_den = NA, mgt, mtl,
 A generalized function to calculate all the posibles derivated trait from Fieldbook. Use as a 
 backend sbformulas.
 }
-

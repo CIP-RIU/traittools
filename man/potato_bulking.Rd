@@ -19,4 +19,3 @@ Potato Center.
 \references{
 This data dictionary is related to CO_330
 }
-

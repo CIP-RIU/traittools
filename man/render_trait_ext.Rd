@@ -19,4 +19,3 @@ Javascript code generator for render trait variables for Rhandsontable
 \author{
 omar benites
 }
-

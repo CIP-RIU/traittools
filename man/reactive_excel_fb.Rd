@@ -20,4 +20,3 @@ Read fieldbooks in reactive enviorment (Shiny)
 \author{
 omar benites
 }
-

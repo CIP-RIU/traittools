@@ -29,4 +29,3 @@ get_trait_crop("NTP", potato_yield)
 \author{
 omar benites
 }
-

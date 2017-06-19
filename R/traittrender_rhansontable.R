@@ -23,7 +23,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   if("STYPE" %in% names(fieldbook)) fieldbook$STYPE<- as.factor(fieldbook$STYPE)
   if("BLOCK_ROW" %in% names(fieldbook)) fieldbook$BLOCK_ROW<- as.factor(fieldbook$BLOCK_ROW)
   if("BLOCK_COL" %in% names(fieldbook)) fieldbook$BLOCK_COL<- as.factor(fieldbook$BLOCK_COL)
-  
+  if("SUBPLOT" %in% names(fieldbook)) fieldbook$SUBPLOT<- as.factor(fieldbook$SUBPLOT)
   
   
   #Validator validates all the trait which produce render_values different from ("")

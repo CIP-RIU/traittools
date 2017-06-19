@@ -30,4 +30,3 @@ If it is categorical, returns the count and mode. And if it is quantitative, ret
 \author{
 Omar Benites
 }
-

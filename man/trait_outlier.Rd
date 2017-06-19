@@ -16,4 +16,3 @@ trait_outlier(file, sumsheet, trait)
 \description{
 This function use openxlsx package to give conditional format for fieldbook spreadsheet
 }
-

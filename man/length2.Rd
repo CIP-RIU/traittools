@@ -14,4 +14,3 @@ length2(x, na.rm = FALSE)
 \description{
 A lenght modified function to manipulate data in case of missing values.
 }
-

@@ -19,9 +19,8 @@ Imports:
     shiny,
     date,
     sbformula
-Suggest: r-base-dev,
-         rhandsontable
+Suggest: r-base-dev
 License: MIT + file LICENSE
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests: testthat

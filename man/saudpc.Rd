@@ -18,4 +18,3 @@ saudpc(instn, audpc, reps, lb.ctrl)
 \description{
 Function calculate relative days for Late Blight Resistance.
 }
-

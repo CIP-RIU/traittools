@@ -18,4 +18,3 @@ Get all the trait variables of fieldbooks, excluding all the fieldbook factors
 \author{
 omar benites
 }
-

@@ -14,4 +14,3 @@ themode(x, na.rm = TRUE)
 \description{
 An statistical function to obtain the mode.
 }
-

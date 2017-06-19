@@ -22,4 +22,3 @@ in Rhansontable
 \author{
 omar benites
 }
-

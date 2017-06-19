@@ -15,4 +15,3 @@ Function to generate Javascript code for quantitative trait validation in Rhanso
 \author{
 omar benites
 }
-

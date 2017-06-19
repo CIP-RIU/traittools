@@ -17,4 +17,3 @@ Function to generate Javascript code for cualitative trait validation in Rhanson
 \author{
 omar benites
 }
-

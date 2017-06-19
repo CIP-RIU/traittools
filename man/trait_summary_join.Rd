@@ -28,4 +28,3 @@ This function sumarizes one or more traits acording to trait_dictionary.
 It show the mean (quantitative), mode (cualitative),
 standard desviation and length of the genotypes.
 }
-

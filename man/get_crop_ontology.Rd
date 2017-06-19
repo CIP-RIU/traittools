@@ -15,4 +15,3 @@ get_crop_ontology(crop, trial = NA)
 Function to obtain the trait dictionary (used in Crop Ontology) according to 
 crop and trial (yield, drought, late blight, Etc.).
 }
-

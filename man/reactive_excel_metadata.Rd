@@ -20,4 +20,3 @@ Read metadata in reactive enviorment (Shiny)
 \author{
 omar benites
 }
-

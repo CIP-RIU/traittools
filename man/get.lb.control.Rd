@@ -12,4 +12,3 @@ get.lb.control(mtl)
 \description{
 Function calculate relative days for Late Blight Resistance.
 }
-

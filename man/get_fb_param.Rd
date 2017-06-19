@@ -14,4 +14,3 @@ get_fb_param(param_data, parameter)
 \description{
 This function gets parameters or values from fieldbook excel file. Do an excel scrapping.
 }
-

@@ -25,4 +25,3 @@ fix_excel_date(date_value="2013-05-22")
 \author{
 omar benites
 }
-

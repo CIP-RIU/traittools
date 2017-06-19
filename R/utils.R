@@ -42,7 +42,7 @@ mutate_excel_date <- function(date_value){
 get_trait_fb <- function(fieldbook){
    #filter values which will not be evaluated becasuse dont have scale
    #EDATE AND DATESP are dates so they need to be removed from analyisis and rendering tables
-   factors <-c("PLOT","INSTN","REP","BLOCK","FACTOR", "ORDER","IDENTIFIED_CRITERIA","EDATE","DATESP", "PHASE", "STYPE","BLOCK_ROW", "BLOCK_COL") 
+   factors <-c("PLOT","INSTN","REP","BLOCK","FACTOR", "ORDER","IDENTIFIED_CRITERIA","EDATE","DATESP", "SELECT", "OBS", "COLBR", "PHASE", "STYPE","BLOCK_ROW", "BLOCK_COL","CBLOCK","SUBPLOT") 
    trait_names <- names(fieldbook)
    trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
    trait_names <- stringr::str_trim(trait_names, side = "both")
@@ -201,11 +201,11 @@ get.rel.days <- function(mgt){
   di = integer(length(ds))
   for(i in 1:length(ds)){
     dx = as.integer(strsplit(ds[i],"-")[[1]])
-  
+    print(dx)
     if(length(dx)==3){
-      #print(date::mdy.date(dx[2],dx[3],dx[1])	)
+      print(date::mdy.date(dx[2],dx[3],dx[1])	)
       di[i] = date::mdy.date(dx[2],dx[3],dx[1])	
-      #print(di[i])
+      print(di[i])
     } else {
       break
     }
@@ -275,7 +275,7 @@ saudpc <-function(instn, audpc, reps, lb.ctrl){
     saudpc[f]=a
   }
   
-  round(saudpc,1)
+  round(saudpc, 1)
 }
 
 #' Get Relative Value for Area Under the Curve(AUDPC)

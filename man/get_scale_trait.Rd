@@ -26,4 +26,3 @@ get_scale_trait("NTP", potato_yield)
 \author{
 omar benites
 }
-

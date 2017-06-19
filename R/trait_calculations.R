@@ -25,10 +25,26 @@ calculate_trait_variables <- function(fb, plot_size=NA, plant_den=NA, mgt, mtl, 
   
     #mgt1 <- transform_dates(mgt = mgt) 
     mgt <- transform_dates(mgt = mgt) 
+    print(mgt)
     
     #print(mgt)
     
     rel.days <- get.rel.days(mgt)
+    print(rel.days)
+    
+    if(any(is.na(rel.days))){ 
+      rel.days <- get.rel.days(mgt) 
+      print(rel.days)
+      mgt <- transform_dates(mgt = mgt)
+      print(mgt)
+      rel.days <- get.rel.days(mgt) 
+      print(rel.days)
+    }
+    
+    print("despues")
+    print(rel.days)
+    print(mgt)
+    
     lb.control <- get.lb.control(mtl)
     
     lbf = c("LB1","LB2","LB3","LB4","LB5","LB6","LB7","LB8","LB9","LB10","LB11","LB12")

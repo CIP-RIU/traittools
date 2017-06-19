@@ -21,4 +21,3 @@ determine atypical values in trait data.
 \author{
 Raul Eyzaguirre
 }
-
