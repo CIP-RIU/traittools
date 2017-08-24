@@ -24,6 +24,11 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   if("BLOCK_ROW" %in% names(fieldbook)) fieldbook$BLOCK_ROW<- as.factor(fieldbook$BLOCK_ROW)
   if("BLOCK_COL" %in% names(fieldbook)) fieldbook$BLOCK_COL<- as.factor(fieldbook$BLOCK_COL)
   if("SUBPLOT" %in% names(fieldbook)) fieldbook$SUBPLOT<- as.factor(fieldbook$SUBPLOT)
+  if("SET" %in% names(fieldbook)) fieldbook$SET<- as.factor(fieldbook$SET)
+  if("FEMALE" %in% names(fieldbook)) fieldbook$FEMLAE<- as.factor(fieldbook$FEMALE)
+  if("MALE" %in% names(fieldbook)) fieldbook$MALE <- as.factor(fieldbook$MALE)
+  if("LINE" %in% names(fieldbook)) fieldbook$LINE <- as.factor(fieldbook$LINE)
+  if("TESTER" %in% names(fieldbook)) fieldbook$TESTER <- as.factor(fieldbook$TESTER)
   
   
   #Validator validates all the trait which produce render_values different from ("")

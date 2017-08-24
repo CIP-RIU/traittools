@@ -218,6 +218,30 @@ summary_by_design <-function(fieldbook, trait, genotype, factor, design = "RCBD"
                          genotype= genotype, factor=NA, trait_dict = trait_dict, na.rm = TRUE)            
   }
   
+  
+  #if (design == "Alpha(0,1) Design (A01D)"){
+  if (design == "WD"){
+    out <- trait_summary(fieldbook = fieldbook, trait = trait,
+                         genotype= genotype, factor=NA, trait_dict = trait_dict, na.rm = TRUE)            
+  }
+  
+  if (design == "NCI"){
+    out <- trait_summary(fieldbook = fieldbook, trait = trait,
+                         genotype= genotype, factor=NA, trait_dict = trait_dict, na.rm = TRUE)            
+  }
+  
+  if (design == "NCII"){
+    out <- trait_summary(fieldbook = fieldbook, trait = trait,
+                         genotype= genotype, factor=NA, trait_dict = trait_dict, na.rm = TRUE)            
+  }
+  
+  if (design == "LXT"){
+    out <- trait_summary(fieldbook = fieldbook, trait = trait,
+                         genotype= genotype, factor=NA, trait_dict = trait_dict, na.rm = TRUE)            
+  }
+  
+  
+  
   out
 }
 

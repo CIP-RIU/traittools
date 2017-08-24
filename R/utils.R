@@ -42,7 +42,14 @@ mutate_excel_date <- function(date_value){
 get_trait_fb <- function(fieldbook){
    #filter values which will not be evaluated becasuse dont have scale
    #EDATE AND DATESP are dates so they need to be removed from analyisis and rendering tables
-   factors <-c("PLOT","INSTN","REP","BLOCK","FACTOR", "ORDER","IDENTIFIED_CRITERIA","EDATE","DATESP", "SELECT", "OBS", "COLBR", "PHASE", "STYPE","BLOCK_ROW", "BLOCK_COL","CBLOCK","SUBPLOT") 
+   #This variable exclude all the column header that belongs to 
+   factors <-c("PLOT","INSTN","REP","BLOCK","FACTOR", "ORDER","IDENTIFIED_CRITERIA",
+               "EDATE","DATESP", "SELECT", "OBS", "COLBR", "PHASE", "STYPE","BLOCK_ROW", 
+               "BLOCK_COL","CBLOCK","SUBPLOT",
+               "ROW", "COLUMN",
+               "SET", "MALE", "FEMALE",
+               "LINE", "TESTER")
+   
    trait_names <- names(fieldbook)
    trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
    trait_names <- stringr::str_trim(trait_names, side = "both")
