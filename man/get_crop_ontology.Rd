@@ -4,14 +4,16 @@
 \alias{get_crop_ontology}
 \title{Get the trait dictionary acordding to crop and trial.}
 \usage{
-get_crop_ontology(crop, trial = NA)
+get_crop_ontology(crop, trial = NA, dsource = 1)
 }
 \arguments{
 \item{crop}{The name of the crop}
 
 \item{trial}{The name of the trial}
+
+\item{dsource}{source of the data \code{1}: Hidap,  \code{2}: FieldbookApp.}
 }
 \description{
-Function to obtain the trait dictionary (used in Crop Ontology) according to 
+Function to obtain the trait dictionary (used in Crop Ontology) according to
 crop and trial (yield, drought, late blight, Etc.).
 }

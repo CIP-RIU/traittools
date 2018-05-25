@@ -4,12 +4,14 @@
 \alias{get_scale_trait}
 \title{Get a scale condition for quantitative or cualitative traits}
 \usage{
-get_scale_trait(trait, trait_dict)
+get_scale_trait(trait, trait_dict, dsource = 1)
 }
 \arguments{
 \item{trait}{trait abreviation}
 
 \item{trait_dict}{trait dictionary}
+
+\item{dsource}{source of the data \code{1}: Hidap,  \code{2}: FieldbookApp.}
 }
 \description{
 Function to get the scale of differents trait,

@@ -20,4 +20,5 @@ determine atypical values in trait data.
 }
 \author{
 Raul Eyzaguirre
+importFrom stats IQR as.formula na.exclude quantile sd
 }

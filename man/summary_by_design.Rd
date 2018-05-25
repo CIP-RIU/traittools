@@ -4,7 +4,7 @@
 \alias{summary_by_design}
 \title{Summarize data by statistical design}
 \usage{
-summary_by_design(fieldbook, trait, genotype, factor, design = "RCBD",
+summary_by_design(fieldbook, trait, genotype, factor = NA, design = "RCBD",
   trait_dict)
 }
 \arguments{

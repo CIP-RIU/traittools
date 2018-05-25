@@ -3,11 +3,12 @@
 #' @param fieldbook The fieldbook data
 #' @param trait The abbreviation(s) of the trait(s) used in fieldbooks.  
 #' @param trait_dict The trait dictionary on crop ontology format.
+#' @param dsource source of the data \code{1}: Hidap,  \code{2}: FieldbookApp. 
 #' @return An web table spreadsheet with conditional format according trait conditions 
 #' @export
 #' 
 
-col_render_trait <- function(fieldbook,trait,trait_dict){
+col_render_trait <- function(fieldbook,trait,trait_dict, dsource =1){
   
   #n <- length(trait)
   fieldbook <- as.data.frame(fieldbook)
@@ -25,15 +26,30 @@ col_render_trait <- function(fieldbook,trait,trait_dict){
   if("BLOCK_COL" %in% names(fieldbook)) fieldbook$BLOCK_COL<- as.factor(fieldbook$BLOCK_COL)
   if("SUBPLOT" %in% names(fieldbook)) fieldbook$SUBPLOT<- as.factor(fieldbook$SUBPLOT)
   if("SET" %in% names(fieldbook)) fieldbook$SET<- as.factor(fieldbook$SET)
-  if("FEMALE" %in% names(fieldbook)) fieldbook$FEMLAE<- as.factor(fieldbook$FEMALE)
+  if("FEMALE" %in% names(fieldbook)) fieldbook$FEMALE<- as.factor(fieldbook$FEMALE)
   if("MALE" %in% names(fieldbook)) fieldbook$MALE <- as.factor(fieldbook$MALE)
   if("LINE" %in% names(fieldbook)) fieldbook$LINE <- as.factor(fieldbook$LINE)
   if("TESTER" %in% names(fieldbook)) fieldbook$TESTER <- as.factor(fieldbook$TESTER)
+  if("ROW" %in% names(fieldbook)) fieldbook$ROW <- as.factor(fieldbook$ROW)
+  if("COLUMN" %in% names(fieldbook)) fieldbook$COLUMN <- as.factor(fieldbook$COLUMN)
+  
+  #FieldbookApp
+  #ToDo: add `abbr_user	plot_number	rep	accesion_name	timestamp	person	location	number` to avoidable variables.
+  if("abbr_user" %in% names(fieldbook)) fieldbook$abbr_user <- as.factor(fieldbook$abbr_user)
+  if("plot_number" %in% names(fieldbook)) fieldbook$plot_number <- as.factor(fieldbook$plot_number)
+  if("rep" %in% names(fieldbook)) fieldbook$rep <- as.factor(fieldbook$rep)
+  if("accesion_name" %in% names(fieldbook)) fieldbook$accesion_name <- as.factor(fieldbook$accesion_name)
+  if("timestamp" %in% names(fieldbook)) fieldbook$timestamp <- as.factor(fieldbook$timestamp)
+  if("person" %in% names(fieldbook)) fieldbook$person <- as.factor(fieldbook$person)
+  if("location" %in% names(fieldbook)) fieldbook$location <- as.factor(fieldbook$location)
+  if("number" %in% names(fieldbook)) fieldbook$number <- as.factor(fieldbook$number)
+  
+  dsource <- dsource
   
   
   #Validator validates all the trait which produce render_values different from ("")
   #validator <- lapply(trait,function(x) v <- render_trait(trait = x,trait_dict = trait_dict))
-  validator <- lapply(trait,function(x) v <- render_trait_ext(data=fieldbook, trait = x,trait_dict = trait_dict))
+  validator <- lapply(trait,function(x) v <- render_trait_ext(data=fieldbook, trait = x,trait_dict = trait_dict, dsource= dsource))
   
   trait <- trait[validator!=""]
   n <- length(trait)

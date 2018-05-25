@@ -4,7 +4,7 @@
 \alias{col_render_trait}
 \title{Conditional Trait Render for Fieldbook Web Table}
 \usage{
-col_render_trait(fieldbook, trait, trait_dict)
+col_render_trait(fieldbook, trait, trait_dict, dsource = 1)
 }
 \arguments{
 \item{fieldbook}{The fieldbook data}
@@ -12,6 +12,8 @@ col_render_trait(fieldbook, trait, trait_dict)
 \item{trait}{The abbreviation(s) of the trait(s) used in fieldbooks.}
 
 \item{trait_dict}{The trait dictionary on crop ontology format.}
+
+\item{dsource}{source of the data \code{1}: Hidap,  \code{2}: FieldbookApp.}
 }
 \value{
 An web table spreadsheet with conditional format according trait conditions

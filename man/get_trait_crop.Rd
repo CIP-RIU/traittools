@@ -4,12 +4,14 @@
 \alias{get_trait_crop}
 \title{Get the crop which one trait belong}
 \usage{
-get_trait_crop(trait, trait_dict)
+get_trait_crop(trait, trait_dict, dsource = 1)
 }
 \arguments{
 \item{trait}{trait abreviation}
 
 \item{trait_dict}{trait dictionary}
+
+\item{dsource}{source of the data \code{1}: Hidap,  \code{2}: FieldbookApp.}
 }
 \value{
 The crop

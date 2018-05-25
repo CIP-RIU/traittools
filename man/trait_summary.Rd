@@ -4,8 +4,8 @@
 \alias{trait_summary}
 \title{Function to calculate summary statistics for fieldbook data from excel files}
 \usage{
-trait_summary(fieldbook, trait, genotype = NA, factor = NA, trait_dict,
-  na.rm = TRUE)
+trait_summary(fieldbook, trait, genotype = NA, factor = NA,
+  trait_dict = NULL, trait_type = NULL, na.rm = TRUE)
 }
 \arguments{
 \item{fieldbook}{A data frame of the fieldbook}
@@ -16,9 +16,11 @@ trait_summary(fieldbook, trait, genotype = NA, factor = NA, trait_dict,
 
 \item{factor}{The column name of the factor}
 
-\item{trait_dict}{The data frame of the data dictionary for potato and sweetpotato}
+\item{trait_dict}{The data frame of the data dictionary for potato and sweetpotato. \code{NULL} in case of not having trait dictionary.}
 
-\item{na.rm}{A boolean that indicates whether to ignore NA}
+\item{trait_type}{Type of trait. Use just in case \code{trait_dict=NULL}. There are two types: \code{numerical} and \code{categorical}}
+
+\item{na.rm}{A boolean that indicates whether to ignore \code{NA}}
 }
 \value{
 A data frame with the count, mean and standard desviation of the trait

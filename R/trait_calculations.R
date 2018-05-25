@@ -18,10 +18,10 @@ calculate_trait_variables <- function(fb, plot_size=NA, plant_den=NA, mgt, mtl, 
   
   #if(trial_type =="Late blight"){  #begin late blight
   date_logic <- !all(is.na(mgt$Date))
-  audpc_logic <- !all(is.na(mtl$Scale_audpc))    
+  saudpc_logic <- !all(is.na(mtl$Scale_audpc))    
+  isRepCol <- is.element("REP", fieldbook_names)
   
-  
-  if(date_logic &&  audpc_logic){
+  if(date_logic){
   
     #mgt1 <- transform_dates(mgt = mgt) 
     mgt <- transform_dates(mgt = mgt) 
@@ -60,22 +60,24 @@ calculate_trait_variables <- function(fb, plot_size=NA, plant_den=NA, mgt, mtl, 
       })
     }
     
-    if("rAUDPC" %in% names(fieldbook)){
-      fieldbook=within(fieldbook,{
-        rAUDPC	= xaudpc(
-          eval = fieldbook[,yy[yy %in% lbf]] ,
-          #eval = cbind(LB1,LB2,LB3,LB4,LB5,LB6,LB7) ,
-          dates= rel.days,
-          type = "relative")
-      })
-    }
     
-    if("SAUDPC" %in% names(fieldbook)){
-      fieldbook=within(fieldbook,{
-        SAUDPC	= saudpc(INSTN,AUDPC,REP, lb.control)
-      })
-    }
     
+      if("rAUDPC" %in% names(fieldbook)){
+        fieldbook=within(fieldbook,{
+          rAUDPC	= xaudpc(
+            eval = fieldbook[,yy[yy %in% lbf]] ,
+            #eval = cbind(LB1,LB2,LB3,LB4,LB5,LB6,LB7) ,
+            dates= rel.days,
+            type = "relative")
+        })
+      }
+    if(saudpc_logic && isRepCol){ #begin saudpc_logic for SAUDPC AND rAUDPC
+      if("SAUDPC" %in% names(fieldbook)){
+        fieldbook=within(fieldbook,{
+          SAUDPC	= saudpc(INSTN,AUDPC,REP, lb.control)
+        })
+      }
+   }  #end saudpc_logic for SAUDPC AND rAUDPC
     
   } #end late blight
   

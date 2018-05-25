@@ -4,10 +4,12 @@
 \alias{get_trait_fb}
 \title{Get all the trait variables of fieldbooks, excluding all the fieldbook factors}
 \usage{
-get_trait_fb(fieldbook)
+get_trait_fb(fieldbook, dsource = 1)
 }
 \arguments{
 \item{fieldbook}{A data.frame which contain fieldbook data}
+
+\item{dsource}{source of the data \code{1}: Hidap,  \code{2}: FieldbookApp.}
 }
 \value{
 All the trait variables

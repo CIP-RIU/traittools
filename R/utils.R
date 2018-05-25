@@ -35,23 +35,38 @@ mutate_excel_date <- function(date_value){
 
 #' Get all the trait variables of fieldbooks, excluding all the fieldbook factors
 #' @param fieldbook A data.frame which contain fieldbook data
+#' @param dsource source of the data \code{1}: Hidap,  \code{2}: FieldbookApp.  
 #' @author omar benites
 #' @return All the trait variables
 #' @export
 #' 
-get_trait_fb <- function(fieldbook){
+get_trait_fb <- function(fieldbook, dsource = 1){
    #filter values which will not be evaluated becasuse dont have scale
    #EDATE AND DATESP are dates so they need to be removed from analyisis and rendering tables
    #This variable exclude all the column header that belongs to 
-   factors <-c("PLOT","INSTN","REP","BLOCK","FACTOR", "ORDER","IDENTIFIED_CRITERIA",
-               "EDATE","DATESP", "SELECT", "OBS", "COLBR", "PHASE", "STYPE","BLOCK_ROW", 
-               "BLOCK_COL","CBLOCK","SUBPLOT",
-               "ROW", "COLUMN",
-               "SET", "MALE", "FEMALE",
-               "LINE", "TESTER")
+  
+  if(dsource == 1){ 
+  
+    factors <-c("PLOT","INSTN","REP","BLOCK","FACTOR", "ORDER","IDENTIFIED_CRITERIA",
+                 "EDATE","DATESP", "SELECT", "OBS", "COLBR", "PHASE", "STYPE","BLOCK_ROW", 
+                 "BLOCK_COL","CBLOCK","SUBPLOT","SUBSAMPLE",
+                 "ROW", "COLUMN",
+                 "SET", "MALE", "FEMALE",
+                 "LINE", "TESTER")
+    trait_names <- names(fieldbook)
+    trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
+    
+  }
+  if( dsource == 2){
+       factors <-c("abbr_user",	"plot_number"	,"rep",	"accesion_name"	,"timestamp",	"person",	"location",	"number")
+       trait_names <- names(fieldbook)
+       trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
+       #trait_names <- gsub("[A-z0-9].*-","", trait_names)
+  }
    
-   trait_names <- names(fieldbook)
-   trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
+   
+   # trait_names <- names(fieldbook)
+   # trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
    trait_names <- stringr::str_trim(trait_names, side = "both")
    trait_names <- trait_names[trait_names!=""]
    trait_names
@@ -125,32 +140,40 @@ get_sheet_data <- function(file,sheet){
   #plot_size  <-  as.numeric(inst[stringr::str_detect(inst$Factor,"Plot size"),"Value"])
 }
 
-#' Get the trait dictionary acordding to crop and trial.  
-#' @description Function to obtain the trait dictionary (used in Crop Ontology) according to 
+#' Get the trait dictionary acordding to crop and trial.
+#' @description Function to obtain the trait dictionary (used in Crop Ontology) according to
 #' crop and trial (yield, drought, late blight, Etc.).
 #' @param crop The name of the crop
 #' @param trial The name of the trial
+#' @param dsource source of the data \code{1}: Hidap,  \code{2}: FieldbookApp. 
 #' @export
-#' 
-get_crop_ontology <- function(crop,trial=NA){
-  
+#'
+get_crop_ontology <- function(crop,trial=NA, dsource = 1){
+
   trial <- tolower(trial)
+  dsource <- dsource
+  
   if(crop == "potato"){
-    #if(trial=="yield") trait_dict <- potato_yield 
+    #if(trial=="yield") trait_dict <- potato_yield
     ##if(trial=="Mother&Baby") trait_dict <- potato_motherbaby
     #if(trial=="late blight") trait_dict <- potato_lb
     ##if(trial=="drought tolerance") trait_dict <- potato_drought #In DataCollector
     #if(trial=="drought") trait_dict <- potato_drought  #in HiDAp
     ##if(trial=="dormancy") trait_dict <- potato_dormancy
     #if(trial=="bulking") trait_dict <- potato_bulking
-    trait_dict <- td_potato
+    #trait_dict <- td_potato
+    #trait_dict <- fbdesign::table_module_potato
+    trait_dict <- table_module_potato
   }
-  
+
   if(crop == "sweetpotato"){ 
-    #if(trial=="yield") trait_dict <- sweetpotato_yield 
-    trait_dict <- td_sweetpotato
+    #if(trial=="yield") trait_dict <- sweetpotato_yield
+    #trait_dict <- td_sweetpotato
+    #trait_dict <- fbdesign::table_module_sweetpotato
+    if(dsource==1) { trait_dict <- table_module_sweetpotato }
+    if(dsource==2)  { trait_dict <- table_module_sweetpotato_sbase}
   }
-  
+
   trait_dict
 }
 
