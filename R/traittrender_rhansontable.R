@@ -59,7 +59,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict, dsource =1){
   for(i in 1:n){
       out_temp[[1]]<- rhandsontable::rhandsontable(data = fieldbook, readOnly = FALSE, useTypes = TRUE) #%>%  
       #renderer_trait[[i]] <- render_trait(trait[i],trait_dict)
-      renderer_trait[[i]] <- render_trait_ext(data=fieldbook, trait[i], trait_dict)
+      renderer_trait[[i]] <- render_trait_ext(data=fieldbook, trait[i], trait_dict, dsource = dsource)
       #if(renderer_trait[[i]]==""){print("no render trait column")}
       #if(renderer_trait[[i]]!=""){
       j <- i+1
