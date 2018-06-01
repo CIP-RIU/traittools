@@ -30,7 +30,7 @@ get_trait_type <- function(trait,trait_dict, dsource = 1)
   }
   if(dsource == 2){
     #tp <- as.character(trait_dict[trait_dict$CO_VAR==trait,c("TYPE")])
-    tp <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("TYPE") %>% pull() %>% as.character()
+    tp <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("TYPE") %>% unlist() %>% as.character()# %>% dplyr::pull() %>% as.character()
   }
   
   #tp <- na.exclude(tp)
@@ -70,7 +70,7 @@ get_trait_name <- function(trait,trait_dict, dsource=1 )
   }
   if(dsource == 2){
     #tp <- as.character(trait_dict[trait_dict$CO_VAR==trait,c("VAR")])
-    tp <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("VAR") %>% pull() %>% as.character()
+    tp <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("VAR") %>% unlist() %>% as.character()#%>% dplyr::pull() %>% as.character()
   }
   
   
@@ -111,7 +111,7 @@ get_trait_units <- function(trait,trait_dict, dsource = 1)
   }
   if(dsource == 2){
     #tp <- as.character(trait_dict[trait_dict$CO_VAR==trait,c("UNITS")])
-    tp <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("UNITS") %>% pull() %>% as.character()
+    tp <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("UNITS") %>% unlist() %>% as.character()#%>% dplyr::pull() %>% as.character()
   }
   
   #tp <- na.exclude(tp)
@@ -151,7 +151,7 @@ get_trait_crop <- function(trait,trait_dict, dsource = 1)
   }
   if(dsource == 2){
     #tp <- as.character(trait_dict[trait_dict$CO_VAR==trait,c("VAR")])
-    tp <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("VAR") %>% pull() %>% as.character()
+    tp <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("VAR") %>% unlist() %>% as.character() #%>% dplyr::pull() %>% as.character()
   }
   
   #tp <- na.exclude(tp)
@@ -203,11 +203,11 @@ get_scale_trait <- function(trait,trait_dict, dsource = 1){
     }
     if(dsource ==2){
       #ll <- as.numeric(trait_dict[trait_dict$CO_VAR==trait,c("LOWER")])
-      ll <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("LOWER") %>% pull() %>% as.character()
+      ll <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("LOWER") %>% unlist() %>% as.character()# %>% dplyr::pull() %>% as.character()
       if(is.na(ll)) {ll <- 0}
       #print(ll)
       #ul <- as.numeric(trait_dict[trait_dict$CO_VAR==trait,c("UPPER")])
-      ul <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("UPPER") %>% pull() %>% as.character()
+      ul <- trait_dict %>% dplyr::filter(TRAIT_COID == trait) %>% select_("UPPER") %>% unlist() %>% as.character() #%>% dplyr::pull() %>% as.character()
       #In case trait is defined but dont have ul scale values will take 100000
       if(is.na(ul)) {ul <- 1000000}
     }
