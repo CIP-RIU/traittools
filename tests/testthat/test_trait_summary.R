@@ -3,6 +3,7 @@ context("Test for summary test")
 test_that("trait_summary test", {
 
   library(traittools)
+  library(st4gi)
   
   sm1 <- trait_summary(fieldbook = spg, trait = "dm", genotype = "geno",factor = "loc",trait_type = "numerical")
   testthat::expect_equal(nrow(sm1),16)

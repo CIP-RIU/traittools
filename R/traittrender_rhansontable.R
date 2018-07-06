@@ -37,12 +37,32 @@ col_render_trait <- function(fieldbook,trait,trait_dict, dsource =1){
   #ToDo: add `abbr_user	plot_number	rep	accesion_name	timestamp	person	location	number` to avoidable variables.
   if("abbr_user" %in% names(fieldbook)) fieldbook$abbr_user <- as.factor(fieldbook$abbr_user)
   if("plot_number" %in% names(fieldbook)) fieldbook$plot_number <- as.factor(fieldbook$plot_number)
+  if("plot_id" %in% names(fieldbook)) fieldbook$plot_id <- fieldbook$plot_id
+  if("plot_name" %in% names(fieldbook)) fieldbook$plot_name <- fieldbook$plot_name
   if("rep" %in% names(fieldbook)) fieldbook$rep <- as.factor(fieldbook$rep)
+  if("rep_number" %in% names(fieldbook)) fieldbook$rep_number <- as.factor(fieldbook$rep_number)
   if("accesion_name" %in% names(fieldbook)) fieldbook$accesion_name <- as.factor(fieldbook$accesion_name)
   if("timestamp" %in% names(fieldbook)) fieldbook$timestamp <- as.factor(fieldbook$timestamp)
   if("person" %in% names(fieldbook)) fieldbook$person <- as.factor(fieldbook$person)
   if("location" %in% names(fieldbook)) fieldbook$location <- as.factor(fieldbook$location)
   if("number" %in% names(fieldbook)) fieldbook$number <- as.factor(fieldbook$number)
+  if("block_number" %in% names(fieldbook)) fieldbook$block_number <- as.factor(fieldbook$block_number)
+  if("row_number" %in% names(fieldbook)) fieldbook$row_number <- as.factor(fieldbook$row_number)
+  if("col_number" %in% names(fieldbook)) fieldbook$col_number <- as.factor(fieldbook$col_number)
+  if("accession_name" %in% names(fieldbook)) fieldbook$accession_name <- as.factor(fieldbook$accession_name)
+  if("is_a_control" %in% names(fieldbook)) fieldbook$is_a_control <- as.factor(fieldbook$is_a_control)
+  if("synosyms" %in% names(fieldbook)) fieldbook$synosyms <- as.factor(fieldbook$synosyms)
+  if("trial_name" %in% names(fieldbook)) fieldbook$trial_name <- as.factor(fieldbook$trial_name) 
+  if("location_name" %in% names(fieldbook)) fieldbook$location_name <- as.factor(fieldbook$location_name) 
+  if("year" %in% names(fieldbook)) fieldbook$year <- as.factor(fieldbook$year)
+  if("pedigree" %in% names(fieldbook)) fieldbook$pedigree <- as.factor(fieldbook$pedigree)
+  if("tier" %in% names(fieldbook)) fieldbook$tier <- as.factor(fieldbook$tier) 
+  if("seedlot_name" %in% names(fieldbook)) fieldbook$seedlot_name <- as.factor(fieldbook$seedlot_name)
+  if("seed_transaction_operator" %in% names(fieldbook)) fieldbook$seed_transaction_operator <- as.factor(fieldbook$seed_transaction_operator)
+  if("num_seed_per_plot"  %in% names(fieldbook)) fieldbook$num_seed_per_plot <- as.factor(fieldbook$num_seed_per_plot)
+  if("range_number"  %in% names(fieldbook)) fieldbook$range_number <- as.factor(fieldbook$range_number) 
+  if("plot_geo_json" %in% names(fieldbook)) fieldbook$plot_geo_json <- as.factor(fieldbook$plot_geo_json)
+ 	
   
   dsource <- dsource
   
@@ -66,7 +86,6 @@ col_render_trait <- function(fieldbook,trait,trait_dict, dsource =1){
       out_temp[[j]] <- rhandsontable::hot_col(hot = out_temp[[i]], col = trait[i] ,readOnly = FALSE,
                                allowInvalid = TRUE,copyable = TRUE, renderer = renderer_trait[[i]]) 
       #}
-      
   } 
   #k <- n+1
   #out_temp[[k]] 

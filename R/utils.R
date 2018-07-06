@@ -35,15 +35,16 @@ mutate_excel_date <- function(date_value){
 
 #' Get all the trait variables of fieldbooks, excluding all the fieldbook factors
 #' @param fieldbook A data.frame which contain fieldbook data
-#' @param dsource source of the data \code{1}: Hidap,  \code{2}: FieldbookApp.  
+#' @param dsource source of the data \code{1}: Hidap,  \code{2}: FieldbookApp. 
+#' @description #filter values which will not be evaluated becasuse dont have scale
+#' EDATE and DATESP are dates so they need to be removed from analyisis and rendering tables
+#' This variable exclude all the column header that belongs to.
 #' @author omar benites
 #' @return All the trait variables
 #' @export
 #' 
 get_trait_fb <- function(fieldbook, dsource = 1){
-   #filter values which will not be evaluated becasuse dont have scale
-   #EDATE AND DATESP are dates so they need to be removed from analyisis and rendering tables
-   #This variable exclude all the column header that belongs to 
+   
   
   if(dsource == 1){ 
   
@@ -58,9 +59,14 @@ get_trait_fb <- function(fieldbook, dsource = 1){
     
   }
   if( dsource == 2){
-       factors <-c("abbr_user",	"plot_number"	,"rep",	"accesion_name"	,"timestamp",	"person",	"location",	"number")
+       #factors <-c("abbr_user",	"plot_number", "plot_id","rep",	"accesion_name"	,"timestamp",	"person",	"location",	"number")
+       factors <- c("plot_name", "abbr_user", "plot_id", "block_number", "plot_number", "rep_number" , "row_number", "col_number",
+                  "accession_name",  "is_a_control", "synosyms", "trial_name", "location_name", "year", "pedigree",
+                  "tier", "seedlot_name", "seed_transaction_operator", "num_seed_per_plot", "range_number", "plot_geo_json",
+                  "timestamp",	"person"	,"location",	"number")
        trait_names <- names(fieldbook)
        trait_names <- names(fieldbook)[!is.element(names(fieldbook),factors)]
+       
        #trait_names <- gsub("[A-z0-9].*-","", trait_names)
   }
    

@@ -15,7 +15,9 @@ get_trait_fb(fieldbook, dsource = 1)
 All the trait variables
 }
 \description{
-Get all the trait variables of fieldbooks, excluding all the fieldbook factors
+#filter values which will not be evaluated becasuse dont have scale
+EDATE and DATESP are dates so they need to be removed from analyisis and rendering tables
+This variable exclude all the column header that belongs to.
 }
 \author{
 omar benites
