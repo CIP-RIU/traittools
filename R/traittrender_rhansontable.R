@@ -70,6 +70,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict, dsource =1){
   #Validator validates all the trait which produce render_values different from ("")
   #validator <- lapply(trait,function(x) v <- render_trait(trait = x,trait_dict = trait_dict))
   validator <- lapply(trait,function(x) v <- render_trait_ext(data=fieldbook, trait = x,trait_dict = trait_dict, dsource= dsource))
+
   
   trait <- trait[validator!=""]
   n <- length(trait)
@@ -77,7 +78,7 @@ col_render_trait <- function(fieldbook,trait,trait_dict, dsource =1){
   out_temp <- list()
   renderer_trait <-  list()
   for(i in 1:n){
-      out_temp[[1]]<- rhandsontable::rhandsontable(data = fieldbook, readOnly = FALSE, useTypes = TRUE) #%>%  
+      out_temp[[1]]<- rhandsontable::rhandsontable(data = fieldbook, readOnly = FALSE, useTypes = TRUE, height = 1200) #%>%  
       #renderer_trait[[i]] <- render_trait(trait[i],trait_dict)
       renderer_trait[[i]] <- render_trait_ext(data=fieldbook, trait[i], trait_dict, dsource = dsource)
       #if(renderer_trait[[i]]==""){print("no render trait column")}
@@ -86,16 +87,26 @@ col_render_trait <- function(fieldbook,trait,trait_dict, dsource =1){
       out_temp[[j]] <- rhandsontable::hot_col(hot = out_temp[[i]], col = trait[i] ,readOnly = FALSE,
                                allowInvalid = TRUE,copyable = TRUE, renderer = renderer_trait[[i]]) 
       #}
+      
   } 
+  
   #k <- n+1
   #out_temp[[k]] 
   #if(export){
   k <- n+1
-  out_temp[[k]] %>%
+  out <- out_temp[[k]] %>%
     rhandsontable::hot_table(highlightCol = TRUE, highlightRow = TRUE) %>%
     rhandsontable::hot_cols(fixedColumnsLeft = 3)  %>%
     rhandsontable::hot_rows(fixedRowsTop = 1)
   
+  if(is.element("plot_id", names(fieldbook))){
+    out %>% 
+      rhandsontable::hot_col(col = "plot_id" ,readOnly = TRUE,
+                             allowInvalid = TRUE,copyable = TRUE, renderer = render_dup_plotdbid_ext(data=fieldbook))
+  }else {
+    out
+  }
+    
   
 #     hot_cols(colWidths = 100) %>%
 #     hot_rows(rowHeights = 50)

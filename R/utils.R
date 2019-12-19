@@ -60,7 +60,7 @@ get_trait_fb <- function(fieldbook, dsource = 1){
   }
   if( dsource == 2){
        #factors <-c("abbr_user",	"plot_number", "plot_id","rep",	"accesion_name"	,"timestamp",	"person",	"location",	"number")
-       factors <- c("plot_name", "abbr_user", "plot_id", "block_number", "plot_number", "rep_number" , "row_number", "col_number",
+       factors <- c("plot_name", "plot_id", "abbr_user", "block_number", "plot_number", "rep_number" , "row_number", "col_number",
                   "accession_name",  "is_a_control", "synosyms", "trial_name", "location_name", "year", "pedigree",
                   "tier", "seedlot_name", "seed_transaction_operator", "num_seed_per_plot", "range_number", "plot_geo_json",
                   "timestamp",	"person"	,"location",	"number")

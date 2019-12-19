@@ -17,3 +17,4 @@ your proccessing data using "Download" button with conditional formatting.
 \seealso{
 Other traitttols: \code{\link{traittoolsApp2}}
 }
+\concept{traitttols}

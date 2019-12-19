@@ -440,9 +440,85 @@ render_trait_ext<- function(data,trait,trait_dict, dsource = 1){
     out <- paste(render_trait)
   
   }      
+
   out
 }
 
+#########################################################################
+#'Javascript Generator Extended for plot db id 
+#'
+#' @param data The name of the data frame.
+#' @author alonso medina
+#' @description  Javascript code generator for render trait variables for Rhandsontable
+#' @export 
+#' 
+
+render_dup_plotdbid_ext<- function(data){
+  
+  dup_values <- get_duplicate_db_id(data)$values
+
+  if(length(dup_values)>0){
+    
+    n <- length(dup_values)
+    
+    dup_values_first <- paste("value ==",dup_values[1], sep = "") #1st class of categorical trait
+    dup_values_global <- paste(dup_values_first,"||","value ==",dup_values[2:n]) #%>%  paste(.,collapse = " && ")
+    dup_values_global <- paste(dup_values_global, collapse = " || ")
+    #render_trait <- render_categorical(scale_condition = dup_values_global)
+    
+    render_dup <- render_duplicated_plot_dbid_ext(dup_values_global)
+    
+    out <- paste(render_dup)
+  }
+}
+
+
 # rhandsontable(data = datos ,readOnly = FALSE) %>%
 # hot_col("NOPS",renderer = renderer)  
+
+
+#########################################################################
+#'Get duplicates of plot db id from fieldbook app files.
+#'
+#' @param data The name of the data frame.
+#' @author alonso medina
+#' @description  Get duplicates plot db id of fieldbook.
+#' @return List of duplicated unique values and row position of plot ids
+#' @export 
+#' 
+get_duplicate_db_id <- function(data){
+
+  idx <- duplicated(data$plot_id) | duplicated(data$plot_id, fromLast = TRUE)
+  values <- unique(data[idx, "plot_id"])
+  row_pos <- row.names(data[idx, "plot_id"])
+  output <- list(values = values,row_pos = row_pos)
+  output
+}
+
+
+#########################################################################
+#'RJavascript generator for duplicated plot db id values
+#'
+#' @param dup_values scale condition of the trait
+#' @author alonso medina
+#' @description Function to generate Javascript code for duplicated plot db ids values in Rhansontable. 
+#' @export
+#' 
+render_duplicated_plot_dbid_ext <- function(dup_values){ 
+  out <- paste("function (instance, td, row, col, prop, value, cellProperties) {
+               Handsontable.renderers.TextRenderer.apply(this, arguments);
+               if (",dup_values,"  ) {
+               td.style.background = 'lightblue';
+               } 
+}",sep="")
+  #cat(out,"\n"," ")
+  #return(out)
+  out
+  
+  
+} 
+
+
+
+
 
